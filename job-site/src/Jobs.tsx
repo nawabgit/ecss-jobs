@@ -1,7 +1,7 @@
 import React from "react";
 
-function App() {
+function Jobs() {
   return <p>website</p>;
 }
 
-export default App;
+export default Jobs;
