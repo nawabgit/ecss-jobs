@@ -11,14 +11,14 @@ const MainContainer = styled.div`
 const JobsCard = styled.div`
   display: flex;
   flex: 1;
-  margin: 2em 2em;
+  margin: 2em 10em;
   background-color: red;
 `;
 
 const JobsList = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 3;
+  flex: 4;
   margin: 5px;
   background-color: gray;
   justify-content: top;
@@ -104,7 +104,7 @@ const JobSalary = styled.span`
   margin-top: 20px;
 `;
 const JobDescription = styled.div`
-  flex: 7;
+  flex: 6;
   margin: 5px;
   background-color: green;
   justify-content: center;
