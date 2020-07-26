@@ -120,6 +120,7 @@ const JobRole = styled.span`
 const JobLocation = styled.span`
   margin-top: 5px;
   font-size: 10pt;
+  color: #2e2e2e;
 `;
 
 const JobSalary = styled.span`
