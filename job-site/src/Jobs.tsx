@@ -1,6 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import ECSSLogo from "./common/images/ecsslogo.png";
+import arm from "./common/images/arm.png";
+import tpp from "./common/images/tpp.png";
+import factset from "./common/images/factset.jpg";
+import graphcore from "./common/images/graphcore.svg";
+import jpmorgan from "./common/images/jpmorgan.jpg";
 
 const MainContainer = styled.div`
   display: flex;
@@ -50,7 +55,6 @@ const JobsContainer = styled.div`
 
 const BasicJob = styled.div`
   display: flex;
-  background-color: gray;
   padding: 8px;
   margin: 0px 0px 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -65,8 +69,16 @@ const BasicJob = styled.div`
   }
 `;
 
-const FeaturedJob = styled(BasicJob)`
+const GoldJob = styled(BasicJob)`
   background-color: gold;
+`;
+
+const SilverJob = styled(BasicJob)`
+  background-color: silver;
+`;
+
+const BronzeJob = styled(BasicJob)`
+  background-color: #b08d57;
 `;
 
 const InnerJobContainer = styled.div`
@@ -75,13 +87,13 @@ const InnerJobContainer = styled.div`
   padding: 5px;
 `;
 
-const Image = styled.div`
-  height: 40px;
-  width: 40px;
-  color: white;
-  text-align: center;
-  line-height: 40px;
-  background-color: black;
+const Image = styled.img`
+  min-height: 40px;
+  min-width: 40px;
+  max-height: 40px;
+  max-width: 40px;
+  border: gray solid 1px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 `;
 
 const JobContents = styled.div`
@@ -188,14 +200,25 @@ interface Job {
   date: string;
 }
 
+interface JobListing extends Job {
+  img: string;
+}
+
 interface JobDescription extends Job {
   description: string;
 }
 
-function JobContent({ company, role, location, salary, date }: Job) {
+function JobContent({
+  company,
+  img,
+  role,
+  location,
+  salary,
+  date,
+}: JobListing) {
   return (
     <InnerJobContainer>
-      <Image>img</Image>
+      <Image src={img} />
       <JobContents>
         <JobHeader>
           <JobHeaderField>{company}</JobHeaderField>
@@ -249,54 +272,60 @@ function Jobs() {
             <span>ECSS Jobs</span>
           </JobsTitle>
           <JobsContainer>
-            <FeaturedJob tabIndex={1}>
+            <GoldJob tabIndex={1}>
               <JobContent
-                company={"Featured Company Name"}
-                role={"Role"}
-                location={"Location, Broader Location"}
-                salary={"£ Salary1 - Salary2"}
-                date={"Days ago D"}
+                company={"Arm"}
+                img={arm}
+                role={"Graduate Engineer"}
+                location={"Manchester, England"}
+                salary={"£34,000 - £36,000 p.a."}
+                date={"7 D"}
               ></JobContent>
-            </FeaturedJob>
-            <FeaturedJob tabIndex={2}>
+            </GoldJob>
+            <GoldJob tabIndex={2}>
               <JobContent
-                company={"Featured Company Name"}
-                role={"Role"}
-                location={"Location, Broader Location"}
-                salary={"£ Salary1 - Salary2"}
-                date={"Days ago D"}
+                company={"TPP"}
+                img={tpp}
+                role={"Deployment Specialist"}
+                location={"Leeds, England"}
+                salary={"£26,000 - £28,000 p.a."}
+                date={"15 D"}
               ></JobContent>
-            </FeaturedJob>
-            <BasicJob tabIndex={3}>
+            </GoldJob>
+            <SilverJob tabIndex={3}>
               <JobContent
-                company={"Company Name"}
-                role={"Role"}
-                location={"Location, Broader Location"}
-                salary={"£ Salary1 - Salary2"}
-                date={"Days ago D"}
+                company={"FactSet"}
+                img={factset}
+                role={"Cloud Automation Engineer"}
+                location={"London, England"}
+                salary={"£30,000 - £40,000 p.a."}
+                date={"2 D"}
               ></JobContent>
-            </BasicJob>
-            <BasicJob tabIndex={4}>
+            </SilverJob>
+            <SilverJob tabIndex={4}>
               <JobContent
-                company={"Company Name"}
-                role={"Role"}
-                location={"Location, Broader Location"}
-                salary={"£ Salary1 - Salary2"}
-                date={"Days ago D"}
+                company={"Graphcore"}
+                img={graphcore}
+                role={"Full Stack Applications Developer"}
+                location={"Bristol, England"}
+                salary={"£45,000 - £50,000 p.a."}
+                date={"5 D"}
               ></JobContent>
-            </BasicJob>
+            </SilverJob>
+            <BronzeJob tabIndex={5}>
+              <JobContent
+                company={"J.P. Morgan"}
+                img={jpmorgan}
+                role={"Software Engineer Internship"}
+                location={"London, England"}
+                salary={"£30,000 - 48,0000 p.a."}
+                date={"17 D"}
+              ></JobContent>
+            </BronzeJob>
             <BasicJob tabIndex={5}>
               <JobContent
                 company={"Company Name"}
-                role={"Role"}
-                location={"Location, Broader Location"}
-                salary={"£ Salary1 - Salary2"}
-                date={"Days ago D"}
-              ></JobContent>
-            </BasicJob>
-            <BasicJob tabIndex={5}>
-              <JobContent
-                company={"Company Name"}
+                img={arm}
                 role={"Role"}
                 location={"Location, Broader Location"}
                 salary={"£ Salary1 - Salary2"}
@@ -307,16 +336,53 @@ function Jobs() {
         </JobsList>
         <JobDetails>
           <JobDescriptionContent
-            company={"Featured Company Name"}
-            role={"Role"}
-            location={"Location, Broader Location"}
-            salary={"£ Salary1 - Salary2"}
+            company={"Arm"}
+            role={"Graduate Engineer - Full Time"}
+            location={"Manchester, England"}
+            salary={"£34,000 - £36,000 p.a."}
             date={"Days ago D"}
-            description={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et malesuada fames ac turpis egestas integer eget. Sit amet porttitor eget dolor morbi. Magna ac placerat vestibulum lectus mauris. Vitae tortor condimentum lacinia quis vel eros donec. Sed viverra tellus in hac habitasse platea dictumst. Tincidunt tortor aliquam nulla facilisi. Blandit volutpat maecenas volutpat blandit. Diam volutpat commodo sed egestas egestas. Sit amet volutpat consequat mauris nunc congue nisi. Erat imperdiet sed euismod nisi. Blandit massa enim nec dui nunc mattis enim. Malesuada bibendum arcu vitae elementum curabitur vitae.
+            description={`Job Description
 
-Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Vivamus arcu felis bibendum ut tristique et. Fusce id velit ut tortor pretium viverra. Arcu odio ut sem nulla pharetra diam. Ultricies integer quis auctor elit sed vulputate mi sit amet. Ac turpis egestas integer eget aliquet nibh praesent tristique. Nulla pharetra diam sit amet. Amet porttitor eget dolor morbi non arcu risus quis. Et pharetra pharetra massa massa ultricies mi quis hendrerit dolor. Elit sed vulputate mi sit. Sem nulla pharetra diam sit amet nisl suscipit adipiscing. Euismod nisi porta lorem mollis aliquam ut. Aliquet sagittis id consectetur purus ut. Cras pulvinar mattis nunc sed. Consectetur libero id faucibus nisl tincidunt eget nullam non. Nunc aliquet bibendum enim facilisis. Purus in massa tempor nec feugiat nisl pretium fusce id.
 
-Dignissim enim sit amet venenatis urna cursus eget nunc scelerisque. Molestie a iaculis at erat. Volutpat diam ut venenatis tellus in metus vulputate eu. Nisl nisi scelerisque eu ultrices vitae auctor eu augue ut. Et molestie ac feugiat sed. Vitae elementum curabitur vitae nunc sed velit. Tristique senectus et netus et. Volutpat odio facilisis mauris sit amet massa. Sagittis eu volutpat odio facilisis. Potenti nullam ac tortor vitae purus faucibus ornare. Tellus molestie nunc non blandit massa. Viverra accumsan in nisl nisi scelerisque eu. Vestibulum lorem sed risus ultricies tristique nulla aliquet enim. Tempor commodo ullamcorper a lacus vestibulum sed arcu non odio. Molestie nunc non blandit massa enim nec dui. Morbi non arcu risus quis varius quam quisque id diam. Diam quis enim lobortis scelerisque. Mattis molestie a iaculis at erat. Malesuada proin libero nunc consequat interdum varius sit. A diam maecenas sed enim.`}
+
+
+Introduction:
+
+If you have a smartphone, digital camera, digital TV, gaming console or a smart meter at home, you’ve already used an Arm Powered product. Over 125 Arm Powered products are shipped every second and over 35 billion Arm technology-based chips have been shipped to date, making us the world’s leading semiconductor Intellectual Property (IP) supplier.
+
+The Arm Office in Sheffield is located in the city centre, close to the universities and with excellent links to the rest of the country. Sheffield itself sits in the centre of the UK and borders the Peak District National Park, with opportunities for many outdoor activities such as hiking, mountain biking and climbing. Sheffield was ranked “the happiest city in Britain” in 2013.
+
+We have numerous teams in the Sheffield office engaged in all the various activities required to bring Arm based systems to markets as diverse as Mobile, Automotive, Machine Learning and Server Infrastructure. These range from creating the necessary software tools required to verify systems, to architecting, designing and verifying system components, to synthesising and implementing them in silicon.
+
+Job Requirements
+
+
+
+
+Education & Qualifications
+
+You will preferably be a graduate from a University or Engineering School, in Electronic Engineering, Software Engineering or Computer Science. Other science graduates with relevant experience will be considered.
+
+The systems we are developing are challenging in both the area of hardware design and software, requiring an enthusiasm for science and technology as a whole. You will find that you are encouraged to find solutions wherever such a challenge presents itself so this will test your ingenuity and ability to work in an autonomous manner as well as part of a cohesive team.
+
+Essential Skills & Experience
+
+The essential skills for a candidate should include:
+Excellent written and spoken English communication, capable of writing coherent reports, influencing and building consensus
+Willingness to be flexible and accept new challenges
+Strong analytical and problem-solving skills
+Ability to express ideas and communicate effectively
+Good inter-personal skills
+Desirable Skills & Experience
+
+The following skills would be nice to have:
+Experience of Verilog, SystemVerilog or VHDL
+HDL synthesis design knowledge
+Perl, Python or other scripting language
+Familiarity of Unix/Linux working environment
+High-level programming experience in an Object Oriented language such as C/C++
+Knowledge of microprocessor, ASIC systems
+Assembly language programming, ideally in Arm assembler`}
           />
         </JobDetails>
       </JobsCard>
