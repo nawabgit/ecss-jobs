@@ -143,7 +143,7 @@ const JobSalary = styled.span`
   margin-top: 20px;
 `;
 
-const JobDetails = styled.div`
+const Details = styled.div`
   display: flex;
   flex-direction: column;
   flex: 6;
@@ -168,20 +168,20 @@ const IconText = styled.span`
   font-size: 10pt;
 `;
 
-const JobDetailsContainer = styled.div`
+const DetailsContainer = styled.div`
   display: flex;
   max-height: 100%;
   flex-direction: column;
   flex: 1;
 `;
 
-const JobDetailsHeader = styled.div`
+const DetailsHeader = styled.div`
   display: flex;
   flex: 1;
   padding: 20px;
 `;
 
-const JobDetailsMeta = styled.div`
+const DetailsMeta = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -189,7 +189,7 @@ const JobDetailsMeta = styled.div`
   padding-left: 20px;
 `;
 
-const JobDetailsContact = styled.div`
+const DetailsContact = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -197,7 +197,7 @@ const JobDetailsContact = styled.div`
   padding: 15px 10px 0px 0px;
 `;
 
-const JobContactButton = styled.button`
+const DetailsContactButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -224,7 +224,7 @@ const DetailsBorder = styled.div`
   border-bottom: solid #e0e0e0 2px;
 `;
 
-const JobDetailsBody = styled.div`
+const DetailsBody = styled.div`
   display: flex;
   flex: 5;
   max-height: 100%;
@@ -286,7 +286,7 @@ function JobContent({
   );
 }
 
-function JobDescriptionContent({
+function JobDetailsContent({
   company,
   role,
   location,
@@ -295,30 +295,30 @@ function JobDescriptionContent({
   description,
 }: JobDescription) {
   return (
-    <JobDetailsContainer>
-      <JobDetailsHeader>
-        <JobDetailsMeta>
+    <DetailsContainer>
+      <DetailsHeader>
+        <DetailsMeta>
           <JobHeaderField>{company}</JobHeaderField>
           <JobRole>{role}</JobRole>
           <JobLocation>{location}</JobLocation>
           <JobSalary>{salary}</JobSalary>
-        </JobDetailsMeta>
-        <JobDetailsContact>
-          <JobContactButton>
+        </DetailsMeta>
+        <DetailsContact>
+          <DetailsContactButton>
             <ShareOutlineIcon />
             <span>Apply</span>
-          </JobContactButton>
-          <JobContactButton>
+          </DetailsContactButton>
+          <DetailsContactButton>
             <EmailOutlineIcon />
             <span>Email</span>
-          </JobContactButton>
-        </JobDetailsContact>
-      </JobDetailsHeader>
+          </DetailsContactButton>
+        </DetailsContact>
+      </DetailsHeader>
       <DetailsBorder />
-      <JobDetailsBody>
+      <DetailsBody>
         <span>{description}</span>
-      </JobDetailsBody>
-    </JobDetailsContainer>
+      </DetailsBody>
+    </DetailsContainer>
   );
 }
 
@@ -478,8 +478,8 @@ function Jobs() {
             </BasicJob>
           </JobsContainer>
         </JobsList>
-        <JobDetails>
-          <JobDescriptionContent
+        <Details>
+          <JobDetailsContent
             company={"Arm"}
             role={"Graduate Engineer - Full Time"}
             location={"Manchester, England"}
@@ -528,7 +528,7 @@ High-level programming experience in an Object Oriented language such as C/C++
 Knowledge of microprocessor, ASIC systems
 Assembly language programming, ideally in Arm assembler`}
           />
-        </JobDetails>
+        </Details>
       </JobsCard>
     </MainContainer>
   );
