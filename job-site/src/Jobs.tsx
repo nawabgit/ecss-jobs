@@ -116,9 +116,14 @@ const JobHeaderField = styled.span`
   font-size: 12pt;
 `;
 
+const JobDate = styled.span`
+  font-size: 10pt;
+`;
+
 const JobRole = styled.span`
   font-size: 16pt;
   font-weight: 450;
+  margin-top: 2px;
 `;
 
 const JobLocation = styled.span`
@@ -188,7 +193,7 @@ const JobDetailsContact = styled.div`
 `;
 
 const JobContactButton = styled.button`
-  margin: 0px 5px;
+  margin: 0px 10px;
   width: 100px;
   height: 30px;
   padding: 0;
@@ -247,7 +252,7 @@ function JobContent({
       <JobContents>
         <JobHeader>
           <JobHeaderField>{company}</JobHeaderField>
-          <JobHeaderField>{date}</JobHeaderField>
+          <JobDate>{date}</JobDate>
         </JobHeader>
         <JobRole>{role}</JobRole>
         <JobIcons>
@@ -382,7 +387,7 @@ function Jobs() {
             company={"Arm"}
             role={"Graduate Engineer - Full Time"}
             location={"Manchester, England"}
-            salary={"£34,000 - £36,000 p.a."}
+            salary={"£35,000 - £45,000 p.a."}
             date={"Days ago D"}
             description={`Job Description
 
