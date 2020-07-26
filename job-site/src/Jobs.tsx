@@ -19,7 +19,7 @@ const JobsList = styled.div`
   display: flex;
   flex-direction: column;
   flex: 4;
-  margin: 5px;
+  margin: 1em;
   background-color: gray;
   justify-content: top;
 `;
@@ -33,7 +33,7 @@ const JobsTitle = styled.div`
 `;
 
 const ECSSImg = styled.img`
-  max-height: 40px;
+  max-height: 50px;
   margin-right: 5px;
 `;
 
@@ -93,7 +93,7 @@ const JobHeader = styled.div`
 
 const JobHeaderField = styled.span`
   font-size: 16pt;
-  font-weight: 450;
+  font-weight: 500;
 `;
 
 const JobRole = styled.span`
@@ -113,7 +113,7 @@ const JobDetails = styled.div`
   display: flex;
   flex-direction: column;
   flex: 6;
-  margin: 5px;
+  margin: 1em;
   background-color: green;
 `;
 
