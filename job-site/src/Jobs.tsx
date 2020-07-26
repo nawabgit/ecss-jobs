@@ -44,7 +44,7 @@ const JobsContainer = styled.div`
   display: flex;
   max-height: 100%;
   padding: 10px;
-  overflow-y: scroll;
+  overflow-y: auto;
   flex-direction: column;
 `;
 
