@@ -5,14 +5,18 @@ import ECSSLogo from "./common/images/ecsslogo.png";
 const MainContainer = styled.div`
   display: flex;
   min-height: 100vh;
-  background-color: blue;
+  max-height: 100vh;
+  padding: 2em 10em;
+  background-color: #e0e0e0;
+  box-sizing: border-box;
 `;
 
 const JobsCard = styled.div`
   display: flex;
   flex: 1;
-  margin: 2em 10em;
-  background-color: red;
+  max-height: 100%;
+  background-color: #f5f5f5;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 `;
 
 const JobsList = styled.div`
@@ -20,7 +24,6 @@ const JobsList = styled.div`
   flex-direction: column;
   flex: 4;
   margin: 1em;
-  background-color: gray;
   justify-content: top;
 `;
 
@@ -28,8 +31,8 @@ const JobsTitle = styled.div`
   display: flex;
   align-items: center;
   height: 60px;
+  margin-bottom: 20px;
   font-size: 40px;
-  background-color: pink;
 `;
 
 const ECSSImg = styled.img`
@@ -39,23 +42,26 @@ const ECSSImg = styled.img`
 
 const JobsContainer = styled.div`
   display: flex;
+  max-height: 100%;
+  padding: 10px;
+  overflow-y: scroll;
   flex-direction: column;
 `;
 
 const BasicJob = styled.div`
   display: flex;
   height: 120px;
-  background-color: purple;
-  margin: 5px 0px;
+  background-color: gray;
+  margin: 10px 0px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
+  transition: 0.2s;
 
   &:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
   }
 
   &:focus {
-    outline: white solid 5px;
+    outline: black solid 5px;
   }
 `;
 
@@ -83,7 +89,6 @@ const JobContents = styled.div`
   flex-direction: column;
   flex: 1;
   margin-left: 5px;
-  background-color: red;
 `;
 
 const JobHeader = styled.div`
@@ -114,7 +119,8 @@ const JobDetails = styled.div`
   flex-direction: column;
   flex: 6;
   margin: 1em;
-  background-color: green;
+  background-color: #fafafa;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 `;
 
 const JobDetailsContainer = styled.div`
@@ -126,6 +132,7 @@ const JobDetailsContainer = styled.div`
 const JobDetailsHeader = styled.div`
   display: flex;
   flex: 1;
+  border-bottom: solid black 1px;
 `;
 
 const JobDetailsMeta = styled.div`
@@ -133,7 +140,6 @@ const JobDetailsMeta = styled.div`
   flex-direction: column;
   flex: 1;
   margin: 5px;
-  background-color: maroon;
 `;
 
 const JobDetailsContact = styled.div`
@@ -141,7 +147,6 @@ const JobDetailsContact = styled.div`
   justify-content: flex-end;
   flex: 1;
   margin: 5px;
-  background-color: orange;
 `;
 
 const JobContactButton = styled.button`
@@ -155,7 +160,6 @@ const JobDetailsBody = styled.div`
   display: flex;
   flex: 5;
   margin: 5px;
-  background-color: olive;
 `;
 
 interface Job {
@@ -271,7 +275,7 @@ function Jobs() {
                 date={"Days ago D"}
               ></JobContent>
             </BasicJob>
-            <BasicJob tabIndex={6}>
+            <BasicJob tabIndex={5}>
               <JobContent
                 company={"Company Name"}
                 role={"Role"}
