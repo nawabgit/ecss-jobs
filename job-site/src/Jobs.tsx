@@ -109,7 +109,7 @@ const JobHeader = styled.div`
 `;
 
 const JobHeaderField = styled.span`
-  font-size: 14pt;
+  font-size: 12pt;
 `;
 
 const JobRole = styled.span`
