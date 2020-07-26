@@ -3,6 +3,8 @@ import styled from "styled-components";
 import ClockTimeThreeIconOutline from "mdi-react/ClockTimeThreeOutlineIcon";
 import CashIcon from "mdi-react/CashIcon";
 import MapMarkerIcon from "mdi-react/MapMarkerIcon";
+import ShareOutlineIcon from "mdi-react/ShareOutlineIcon";
+import EmailOutlineIcon from "mdi-react/EmailOutlineIcon";
 
 import ECSSLogo from "./common/images/ecsslogo.png";
 import arm from "./common/images/arm.png";
@@ -193,16 +195,23 @@ const JobDetailsContact = styled.div`
 `;
 
 const JobContactButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0px 10px;
   width: 100px;
-  height: 30px;
+  height: 50px;
   padding: 0;
   border: none;
   outline: none;
   color: white;
   background-color: red;
-
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+
+  .mdi-icon {
+    margin-right: 5px;
+    font-size: 14pt;
+  }
 `;
 
 const DetailsBorder = styled.div`
@@ -292,8 +301,14 @@ function JobDescriptionContent({
           <JobSalary>{salary}</JobSalary>
         </JobDetailsMeta>
         <JobDetailsContact>
-          <JobContactButton>Apply</JobContactButton>
-          <JobContactButton>Email</JobContactButton>
+          <JobContactButton>
+            <ShareOutlineIcon />
+            <span>Apply</span>
+          </JobContactButton>
+          <JobContactButton>
+            <EmailOutlineIcon />
+            <span>Email</span>
+          </JobContactButton>
         </JobDetailsContact>
       </JobDetailsHeader>
       <DetailsBorder />
