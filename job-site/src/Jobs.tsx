@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import ECSSLogo from "./common/images/ecsslogo.png";
-import { MDCRipple } from "@material/ripple";
 
 const MainContainer = styled.div`
   display: flex;
@@ -134,7 +133,7 @@ const JobDetailsContainer = styled.div`
 const JobDetailsHeader = styled.div`
   display: flex;
   flex: 1;
-  border-bottom: solid black 1px;
+  padding: 20px;
 `;
 
 const JobDetailsMeta = styled.div`
@@ -166,12 +165,19 @@ const JobContactButton = styled.button`
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 `;
 
+const DetailsBorder = styled.div`
+  height: 3px;
+  width: 85%;
+  align-self: center;
+  border-bottom: solid #e0e0e0 2px;
+`;
+
 const JobDetailsBody = styled.div`
   display: flex;
   flex: 5;
   max-height: 100%;
   overflow-y: auto;
-  padding: 20px;
+  padding: 20px 40px;
 `;
 
 interface Job {
@@ -225,6 +231,7 @@ function JobDescriptionContent({
           <JobContactButton>Email</JobContactButton>
         </JobDetailsContact>
       </JobDetailsHeader>
+      <DetailsBorder />
       <JobDetailsBody>
         <span>{description}</span>
       </JobDetailsBody>
