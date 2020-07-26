@@ -61,7 +61,6 @@ const JobsContainer = styled.div`
 
 const BasicJob = styled.div`
   display: flex;
-  padding: 8px;
   margin: 0px 0px 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.2s;
@@ -75,22 +74,26 @@ const BasicJob = styled.div`
   }
 `;
 
-const GoldJob = styled(BasicJob)`
+const SponsorStrip = styled.div`
+  width: 30px;
+`;
+
+const GoldSponsorStrip = styled(SponsorStrip)`
   background-color: gold;
 `;
 
-const SilverJob = styled(BasicJob)`
+const SilverSponsorStrip = styled(SponsorStrip)`
   background-color: silver;
 `;
 
-const BronzeJob = styled(BasicJob)`
+const BronzeSponsorStrip = styled(SponsorStrip)`
   background-color: #b08d57;
 `;
 
 const InnerJobContainer = styled.div`
   display: flex;
   flex: 1;
-  padding: 5px;
+  padding: 15px;
 `;
 
 const Image = styled.img`
@@ -329,7 +332,7 @@ function Jobs() {
             <span>ECSS Jobs</span>
           </JobsTitle>
           <JobsContainer>
-            <GoldJob tabIndex={1}>
+            <BasicJob tabIndex={1}>
               <JobContent
                 company={"Arm"}
                 img={arm}
@@ -337,10 +340,11 @@ function Jobs() {
                 location={"Manchester"}
                 salary={"£35K - £45K"}
                 duration={"Full Time"}
-                date={"7 D"}
+                date={"7d"}
               ></JobContent>
-            </GoldJob>
-            <GoldJob tabIndex={2}>
+              <GoldSponsorStrip />
+            </BasicJob>
+            <BasicJob tabIndex={2}>
               <JobContent
                 company={"TPP"}
                 img={tpp}
@@ -348,10 +352,11 @@ function Jobs() {
                 location={"Leeds"}
                 duration={"Placement"}
                 salary={"£26K - £28K"}
-                date={"15 D"}
+                date={"15d"}
               ></JobContent>
-            </GoldJob>
-            <SilverJob tabIndex={3}>
+              <GoldSponsorStrip />
+            </BasicJob>
+            <BasicJob tabIndex={3}>
               <JobContent
                 company={"FactSet"}
                 img={factset}
@@ -359,10 +364,11 @@ function Jobs() {
                 location={"London"}
                 salary={"£30K - £40K"}
                 duration={"Placement"}
-                date={"2 D"}
+                date={"2d"}
               ></JobContent>
-            </SilverJob>
-            <SilverJob tabIndex={4}>
+              <SilverSponsorStrip />
+            </BasicJob>
+            <BasicJob tabIndex={4}>
               <JobContent
                 company={"Graphcore"}
                 img={graphcore}
@@ -370,10 +376,11 @@ function Jobs() {
                 location={"Bristol"}
                 salary={"£40K - £50K"}
                 duration={"Internship"}
-                date={"5 D"}
+                date={"5d"}
               ></JobContent>
-            </SilverJob>
-            <BronzeJob tabIndex={5}>
+              <SilverSponsorStrip />
+            </BasicJob>
+            <BasicJob tabIndex={5}>
               <JobContent
                 company={"J.P. Morgan"}
                 img={jpmorgan}
@@ -381,9 +388,10 @@ function Jobs() {
                 location={"London"}
                 salary={"£36K - £48K"}
                 duration={"Internship"}
-                date={"17 D"}
+                date={"17d"}
               ></JobContent>
-            </BronzeJob>
+              <BronzeSponsorStrip />
+            </BasicJob>
             <BasicJob tabIndex={5}>
               <JobContent
                 company={"Company Name"}
@@ -392,7 +400,7 @@ function Jobs() {
                 location={"Location"}
                 salary={"£Salary1 - Salary2"}
                 duration={"Duration"}
-                date={"Days ago D"}
+                date={"Days ago d"}
               ></JobContent>
             </BasicJob>
           </JobsContainer>
