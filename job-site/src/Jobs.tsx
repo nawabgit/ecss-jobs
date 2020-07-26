@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ECSSLogo from "./common/images/ecsslogo.png";
+import { MDCRipple } from "@material/ripple";
 
 const MainContainer = styled.div`
   display: flex;
@@ -88,7 +89,7 @@ const JobContents = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  margin-left: 5px;
+  margin-left: 10px;
 `;
 
 const JobHeader = styled.div`
@@ -125,6 +126,7 @@ const JobDetails = styled.div`
 
 const JobDetailsContainer = styled.div`
   display: flex;
+  max-height: 100%;
   flex-direction: column;
   flex: 1;
 `;
@@ -139,27 +141,37 @@ const JobDetailsMeta = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  margin: 5px;
+  padding-top: 15px;
+  padding-left: 20px;
 `;
 
 const JobDetailsContact = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   flex: 1;
-  margin: 5px;
+  padding: 15px 10px 0px 0px;
 `;
 
 const JobContactButton = styled.button`
-  margin: 10px;
+  margin: 0px 5px;
   width: 100px;
-  height: 50px;
-  background-color: dodgerblue;
+  height: 30px;
+  padding: 0;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: red;
+
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 `;
 
 const JobDetailsBody = styled.div`
   display: flex;
   flex: 5;
-  margin: 5px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 20px;
 `;
 
 interface Job {
@@ -214,7 +226,7 @@ function JobDescriptionContent({
         </JobDetailsContact>
       </JobDetailsHeader>
       <JobDetailsBody>
-        <p>{description}</p>
+        <span>{description}</span>
       </JobDetailsBody>
     </JobDetailsContainer>
   );
