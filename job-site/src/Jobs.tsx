@@ -43,7 +43,7 @@ const ECSSImg = styled.img`
 const JobsContainer = styled.div`
   display: flex;
   max-height: 100%;
-  padding: 10px;
+  padding: 6px 10px;
   overflow-y: auto;
   flex-direction: column;
 `;
@@ -52,7 +52,7 @@ const BasicJob = styled.div`
   display: flex;
   height: 120px;
   background-color: gray;
-  margin: 10px 0px;
+  margin: 0px 0px 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.2s;
 
