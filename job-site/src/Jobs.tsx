@@ -54,7 +54,7 @@ const ECSSImg = styled.img`
 const JobsContainer = styled.div`
   display: flex;
   max-height: 100%;
-  padding: 6px 10px;
+  padding: 4px 10px;
   overflow-y: auto;
   flex-direction: column;
 `;
@@ -62,7 +62,7 @@ const JobsContainer = styled.div`
 const BasicJob = styled.div`
   display: flex;
   margin: 0px 0px 20px;
-  transition: 0.2s;
+  transition: 0.1s;
   border-bottom: solid #d3d3d3 1px;
 
   &:hover {
@@ -70,7 +70,7 @@ const BasicJob = styled.div`
   }
 
   &:focus {
-    outline: black solid 5px;
+    outline: black solid 3px;
   }
 `;
 
@@ -402,6 +402,79 @@ function Jobs() {
                 duration={"Duration"}
                 date={"Days ago d"}
               ></JobContent>
+              <SponsorStrip />
+            </BasicJob>
+            <BasicJob tabIndex={5}>
+              <JobContent
+                company={"Company Name"}
+                img={arm}
+                role={"Role"}
+                location={"Location"}
+                salary={"£Salary1 - Salary2"}
+                duration={"Duration"}
+                date={"Days ago d"}
+              ></JobContent>
+              <SponsorStrip />
+            </BasicJob>
+            <BasicJob tabIndex={5}>
+              <JobContent
+                company={"Company Name"}
+                img={arm}
+                role={"Role"}
+                location={"Location"}
+                salary={"£Salary1 - Salary2"}
+                duration={"Duration"}
+                date={"Days ago d"}
+              ></JobContent>
+              <SponsorStrip />
+            </BasicJob>
+            <BasicJob tabIndex={5}>
+              <JobContent
+                company={"Company Name"}
+                img={arm}
+                role={"Role"}
+                location={"Location"}
+                salary={"£Salary1 - Salary2"}
+                duration={"Duration"}
+                date={"Days ago d"}
+              ></JobContent>
+              <SponsorStrip />
+            </BasicJob>
+            <BasicJob tabIndex={5}>
+              <JobContent
+                company={"Company Name"}
+                img={arm}
+                role={"Role"}
+                location={"Location"}
+                salary={"£Salary1 - Salary2"}
+                duration={"Duration"}
+                date={"Days ago d"}
+              ></JobContent>
+              <SponsorStrip />
+            </BasicJob>
+            <BasicJob tabIndex={5}>
+              <JobContent
+                company={"Company Name"}
+                img={arm}
+                role={"Role"}
+                location={"Location"}
+                salary={"£Salary1 - Salary2"}
+                duration={"Duration"}
+                date={"Days ago d"}
+              ></JobContent>
+              <SponsorStrip />
+            </BasicJob>
+            <BasicJob tabIndex={5}>
+              <JobContent
+                company={"Company Name"}
+                img={arm}
+                role={"Role"}
+                location={"Location"}
+                salary={"£Salary1 - Salary2"}
+                duration={"Duration"}
+                date={"Days ago d"}
+              ></JobContent>
+              <SponsorStrip />
             </BasicJob>
           </JobsContainer>
         </JobsList>
