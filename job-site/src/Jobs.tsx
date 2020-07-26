@@ -50,8 +50,8 @@ const JobsContainer = styled.div`
 
 const BasicJob = styled.div`
   display: flex;
-  height: 120px;
   background-color: gray;
+  padding: 8px;
   margin: 0px 0px 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.2s;
