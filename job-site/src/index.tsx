@@ -14,6 +14,19 @@ const GlobalStyle = createGlobalStyle`
     font-size: 14pt;
     font-family: Roboto, sans-serif;
   }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: gray gray;
+  }
+  
+  *::-webkit-scrollbar {
+    width: 4px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 20px;
+  }
 `;
 
 ReactDOM.render(
