@@ -1,5 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import ClockTimeThreeIconOutline from "mdi-react/ClockTimeThreeOutlineIcon";
+import CashIcon from "mdi-react/CashIcon";
+import MapMarkerIcon from "mdi-react/MapMarkerIcon";
+
 import ECSSLogo from "./common/images/ecsslogo.png";
 import arm from "./common/images/arm.png";
 import tpp from "./common/images/tpp.png";
@@ -128,6 +132,7 @@ const JobSalary = styled.span`
   font-style: italic;
   margin-top: 20px;
 `;
+
 const JobDetails = styled.div`
   display: flex;
   flex-direction: column;
@@ -135,6 +140,22 @@ const JobDetails = styled.div`
   margin: 1em;
   background-color: #fafafa;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+`;
+
+const JobIcons = styled.div`
+  display: flex;
+  margin: 20px 50px 5px 0px;
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+`;
+
+const IconText = styled.span`
+  margin-left: 5px;
+  font-size: 10pt;
 `;
 
 const JobDetailsContainer = styled.div`
@@ -204,6 +225,7 @@ interface Job {
 
 interface JobListing extends Job {
   img: string;
+  duration: string;
 }
 
 interface JobDescription extends Job {
@@ -216,6 +238,7 @@ function JobContent({
   role,
   location,
   salary,
+  duration,
   date,
 }: JobListing) {
   return (
@@ -227,8 +250,20 @@ function JobContent({
           <JobHeaderField>{date}</JobHeaderField>
         </JobHeader>
         <JobRole>{role}</JobRole>
-        <JobLocation>{location}</JobLocation>
-        <JobSalary>{salary}</JobSalary>
+        <JobIcons>
+          <IconContainer>
+            <CashIcon />
+            <IconText>{salary}</IconText>
+          </IconContainer>
+          <IconContainer>
+            <MapMarkerIcon />
+            <IconText>{location}</IconText>
+          </IconContainer>
+          <IconContainer>
+            <ClockTimeThreeIconOutline />
+            <IconText>{duration}</IconText>
+          </IconContainer>
+        </JobIcons>
       </JobContents>
     </InnerJobContainer>
   );
@@ -279,8 +314,9 @@ function Jobs() {
                 company={"Arm"}
                 img={arm}
                 role={"Graduate Engineer"}
-                location={"Manchester, England"}
-                salary={"£34,000 - £36,000 p.a."}
+                location={"Manchester"}
+                salary={"£35K - £45K"}
+                duration={"Full Time"}
                 date={"7 D"}
               ></JobContent>
             </GoldJob>
@@ -289,8 +325,9 @@ function Jobs() {
                 company={"TPP"}
                 img={tpp}
                 role={"Deployment Specialist"}
-                location={"Leeds, England"}
-                salary={"£26,000 - £28,000 p.a."}
+                location={"Leeds"}
+                duration={"Placement"}
+                salary={"£26K - £28K"}
                 date={"15 D"}
               ></JobContent>
             </GoldJob>
@@ -299,8 +336,9 @@ function Jobs() {
                 company={"FactSet"}
                 img={factset}
                 role={"Cloud Automation Engineer"}
-                location={"London, England"}
-                salary={"£30,000 - £40,000 p.a."}
+                location={"London"}
+                salary={"£30K - £40K"}
+                duration={"Placement"}
                 date={"2 D"}
               ></JobContent>
             </SilverJob>
@@ -309,8 +347,9 @@ function Jobs() {
                 company={"Graphcore"}
                 img={graphcore}
                 role={"Full Stack Applications Developer"}
-                location={"Bristol, England"}
-                salary={"£45,000 - £50,000 p.a."}
+                location={"Bristol"}
+                salary={"£40K - £50K"}
+                duration={"Internship"}
                 date={"5 D"}
               ></JobContent>
             </SilverJob>
@@ -318,9 +357,10 @@ function Jobs() {
               <JobContent
                 company={"J.P. Morgan"}
                 img={jpmorgan}
-                role={"Software Engineer Internship"}
-                location={"London, England"}
-                salary={"£30,000 - 48,0000 p.a."}
+                role={"Software Engineer"}
+                location={"London"}
+                salary={"£36K - £48K"}
+                duration={"Internship"}
                 date={"17 D"}
               ></JobContent>
             </BronzeJob>
@@ -329,8 +369,9 @@ function Jobs() {
                 company={"Company Name"}
                 img={arm}
                 role={"Role"}
-                location={"Location, Broader Location"}
-                salary={"£ Salary1 - Salary2"}
+                location={"Location"}
+                salary={"£Salary1 - Salary2"}
+                duration={"Duration"}
                 date={"Days ago D"}
               ></JobContent>
             </BasicJob>
