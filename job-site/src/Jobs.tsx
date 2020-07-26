@@ -62,11 +62,11 @@ const JobsContainer = styled.div`
 const BasicJob = styled.div`
   display: flex;
   margin: 0px 0px 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.2s;
+  border-bottom: solid #d3d3d3 1px;
 
   &:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   }
 
   &:focus {
@@ -385,7 +385,7 @@ function Jobs() {
                 company={"J.P. Morgan"}
                 img={jpmorgan}
                 role={"Software Engineer"}
-                location={"London"}
+                location={"Remote"}
                 salary={"£36K - £48K"}
                 duration={"Internship"}
                 date={"17d"}
