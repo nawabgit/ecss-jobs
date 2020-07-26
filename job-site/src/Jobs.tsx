@@ -6,7 +6,7 @@ const MainContainer = styled.div`
   display: flex;
   min-height: 100vh;
   max-height: 100vh;
-  padding: 2em 10em;
+  padding: 2em 6em;
   background-color: #e0e0e0;
   box-sizing: border-box;
 `;
