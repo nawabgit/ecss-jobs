@@ -159,18 +159,13 @@ const JobLocation = styled.span`
   color: #2e2e2e;
 `;
 
-const JobSalary = styled.span`
-  font-size: 12pt;
-  font-style: italic;
-  margin-top: 20px;
-`;
-
 const Details = styled.div`
   display: flex;
   flex-direction: column;
   flex: 6;
   margin: 1em;
   font-size: 11pt;
+  border-left: solid #e0e0e0 2px;
 `;
 
 const JobIcons = styled.div`
