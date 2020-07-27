@@ -45,6 +45,7 @@ const JobsTitle = styled.div`
   display: flex;
   align-items: center;
   height: 60px;
+  margin-left: 10px;
   margin-bottom: 20px;
   font-size: 40px;
 `;
@@ -52,6 +53,24 @@ const JobsTitle = styled.div`
 const ECSSImg = styled.img`
   max-height: 50px;
   margin-right: 5px;
+`;
+
+const FilterContainer = styled.div`
+  display: flex;
+  text-align: center;
+  margin-left: 20px;
+  margin-bottom: 20px;
+`;
+
+const FilterText = styled.span`
+  font-size: 12pt;
+  text-align: center;
+  padding-top: 3px;
+`;
+
+const FilterSelect = styled.select`
+  padding: 3px;
+  margin-left: 10px;
 `;
 
 const JobsContainer = styled.div`
@@ -337,6 +356,32 @@ function Jobs() {
             <ECSSImg src={ECSSLogo} />
             <span>ECSS Jobs</span>
           </JobsTitle>
+          <FilterContainer>
+            <FilterText>Filters:</FilterText>
+            <FilterSelect name="types" id="type">
+              <option value="alljobs">All Job Types</option>
+              <option value="internship">Internship</option>
+              <option value="placement">Placement</option>
+              <option value="parttime">Part-Time</option>
+              <option value="fulltime">Full-Time</option>
+            </FilterSelect>
+            <FilterSelect name="location" id="location">
+              <option value="alllocations">All Locations</option>
+              <option value="remote">Remote</option>
+              <option value="london">London</option>
+              <option value="manchester">Manchester</option>
+              <option value="leeds">Leeds</option>
+              <option value="bristol">Bristol</option>
+              <option value="other">Other</option>
+            </FilterSelect>
+            <FilterSelect name="time" id="time">
+              <option value="alltimes">Posted Any Time</option>
+              <option value="day">Last Day</option>
+              <option value="3day">Last 3 Days</option>
+              <option value="week">Last Week</option>
+              <option value="month">Last Month</option>
+            </FilterSelect>
+          </FilterContainer>
           <JobsContainer>
             <BasicJob tabIndex={1}>
               <JobContent
