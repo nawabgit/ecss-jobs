@@ -52,7 +52,7 @@ const JobsTitle = styled.div`
 
 const ECSSImg = styled.img`
   max-height: 50px;
-  margin-right: 5px;
+  margin-right: 10px;
 `;
 
 const FilterContainer = styled.div`
@@ -170,14 +170,22 @@ const Details = styled.div`
   flex-direction: column;
   flex: 6;
   margin: 1em;
-  background-color: #fafafa;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   font-size: 11pt;
 `;
 
 const JobIcons = styled.div`
   display: flex;
   margin: 20px 50px 5px 0px;
+`;
+
+const DetailsIcons = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+
+  * {
+    margin: 1px 0px;
+  }
 `;
 
 const IconContainer = styled.div`
@@ -262,12 +270,12 @@ interface Job {
   role: string;
   location: string;
   salary: string;
+  duration: string;
   date: string;
 }
 
 interface JobListing extends Job {
   img: string;
-  duration: string;
 }
 
 interface JobDescription extends Job {
@@ -316,6 +324,7 @@ function JobDetailsContent({
   role,
   location,
   salary,
+  duration,
   date,
   description,
 }: JobDescription) {
@@ -325,8 +334,21 @@ function JobDetailsContent({
         <DetailsMeta>
           <JobHeaderField>{company}</JobHeaderField>
           <JobRole>{role}</JobRole>
-          <JobLocation>{location}</JobLocation>
-          <JobSalary>{salary}</JobSalary>
+          <JobLocation>{date}</JobLocation>
+          <DetailsIcons>
+            <IconContainer>
+              <CashIcon />
+              <IconText>{salary}</IconText>
+            </IconContainer>
+            <IconContainer>
+              <MapMarkerIcon />
+              <IconText>{location}</IconText>
+            </IconContainer>
+            <IconContainer>
+              <ClockTimeThreeIconOutline />
+              <IconText>{duration}</IconText>
+            </IconContainer>
+          </DetailsIcons>
         </DetailsMeta>
         <DetailsContact>
           <DetailsContactButton>
@@ -354,7 +376,7 @@ function Jobs() {
         <JobsList>
           <JobsTitle>
             <ECSSImg src={ECSSLogo} />
-            <span>ECSS Jobs</span>
+            <span>ECSS Job Board</span>
           </JobsTitle>
           <FilterContainer>
             <FilterText>Filters:</FilterText>
@@ -532,10 +554,11 @@ function Jobs() {
         <Details>
           <JobDetailsContent
             company={"Arm"}
-            role={"Graduate Engineer - Full Time"}
+            role={"Graduate Engineer"}
             location={"Manchester, England"}
             salary={"£35,000 - £45,000 p.a."}
-            date={"Days ago D"}
+            date={"Posted 25/07/2020"}
+            duration={"Full Time"}
             description={`#### Introduction:
 If you have a smartphone, digital camera, digital TV, gaming console or a smart meter at home, you’ve already used an Arm Powered product. Over 125 Arm Powered products are shipped every second and over 35 billion Arm technology-based chips have been shipped to date, making us the world’s leading semiconductor Intellectual Property (IP) supplier.
 
