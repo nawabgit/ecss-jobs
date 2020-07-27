@@ -234,7 +234,7 @@ const DetailsContactButton = styled.button`
   border: none;
   outline: none;
   color: white;
-  background-color: red;
+  background-color: #c62121;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 
   .mdi-icon {
