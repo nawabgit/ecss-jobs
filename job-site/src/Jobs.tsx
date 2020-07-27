@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+
+import ReactMarkdown from "react-markdown";
+
 import ClockTimeThreeIconOutline from "mdi-react/ClockTimeThreeOutlineIcon";
 import CashIcon from "mdi-react/CashIcon";
 import MapMarkerIcon from "mdi-react/MapMarkerIcon";
@@ -150,6 +153,7 @@ const Details = styled.div`
   margin: 1em;
   background-color: #fafafa;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  font-size: 11pt;
 `;
 
 const JobIcons = styled.div`
@@ -226,10 +230,12 @@ const DetailsBorder = styled.div`
 
 const DetailsBody = styled.div`
   display: flex;
+  flex-direction: column;
   flex: 5;
   max-height: 100%;
   overflow-y: auto;
   padding: 20px 40px;
+  margin-top: 20px;
 `;
 
 interface Job {
@@ -316,7 +322,7 @@ function JobDetailsContent({
       </DetailsHeader>
       <DetailsBorder />
       <DetailsBody>
-        <span>{description}</span>
+        <ReactMarkdown source={description} />
       </DetailsBody>
     </DetailsContainer>
   );
@@ -485,48 +491,40 @@ function Jobs() {
             location={"Manchester, England"}
             salary={"£35,000 - £45,000 p.a."}
             date={"Days ago D"}
-            description={`Job Description
-
-
-
-
-Introduction:
-
+            description={`#### Introduction:
 If you have a smartphone, digital camera, digital TV, gaming console or a smart meter at home, you’ve already used an Arm Powered product. Over 125 Arm Powered products are shipped every second and over 35 billion Arm technology-based chips have been shipped to date, making us the world’s leading semiconductor Intellectual Property (IP) supplier.
 
 The Arm Office in Sheffield is located in the city centre, close to the universities and with excellent links to the rest of the country. Sheffield itself sits in the centre of the UK and borders the Peak District National Park, with opportunities for many outdoor activities such as hiking, mountain biking and climbing. Sheffield was ranked “the happiest city in Britain” in 2013.
 
 We have numerous teams in the Sheffield office engaged in all the various activities required to bring Arm based systems to markets as diverse as Mobile, Automotive, Machine Learning and Server Infrastructure. These range from creating the necessary software tools required to verify systems, to architecting, designing and verifying system components, to synthesising and implementing them in silicon.
 
-Job Requirements
+### Job Requirements
 
 
-
-
-Education & Qualifications
+#### Education & Qualifications
 
 You will preferably be a graduate from a University or Engineering School, in Electronic Engineering, Software Engineering or Computer Science. Other science graduates with relevant experience will be considered.
 
 The systems we are developing are challenging in both the area of hardware design and software, requiring an enthusiasm for science and technology as a whole. You will find that you are encouraged to find solutions wherever such a challenge presents itself so this will test your ingenuity and ability to work in an autonomous manner as well as part of a cohesive team.
 
-Essential Skills & Experience
+#### Essential Skills & Experience
 
 The essential skills for a candidate should include:
-Excellent written and spoken English communication, capable of writing coherent reports, influencing and building consensus
-Willingness to be flexible and accept new challenges
-Strong analytical and problem-solving skills
-Ability to express ideas and communicate effectively
-Good inter-personal skills
-Desirable Skills & Experience
+* Excellent written and spoken English communication, capable of writing coherent reports, influencing and building consensus
+* Willingness to be flexible and accept new challenges
+* Strong analytical and problem-solving skills
+* Ability to express ideas and communicate effectively
+* Good inter-personal skills
+* Desirable Skills & Experience
 
 The following skills would be nice to have:
-Experience of Verilog, SystemVerilog or VHDL
-HDL synthesis design knowledge
-Perl, Python or other scripting language
-Familiarity of Unix/Linux working environment
-High-level programming experience in an Object Oriented language such as C/C++
-Knowledge of microprocessor, ASIC systems
-Assembly language programming, ideally in Arm assembler`}
+* Experience of Verilog, SystemVerilog or VHDL
+* HDL synthesis design knowledge
+* Perl, Python or other scripting language
+* Familiarity of Unix/Linux working environment
+* High-level programming experience in an Object Oriented language such as C/C++
+* Knowledge of microprocessor, ASIC systems
+* Assembly language programming, ideally in Arm assembler`}
           />
         </Details>
       </JobsCard>
