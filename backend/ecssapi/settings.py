@@ -30,6 +30,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Whitelist localhost:3000 because that's where frontend will be served
+CORS_ORIGIN_WHITELIST = ['localhost:3000/']
+
+
+
 
 # Application definition
 
@@ -41,10 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'jobs.apps.JobsConfig',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', # CORS middleware to resolve common issues
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
