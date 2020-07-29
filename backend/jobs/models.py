@@ -11,7 +11,8 @@ class Listing(models.Model):
     salary_preview = models.CharField(max_length=20)
     location = models.CharField(max_length=20)
     greater_location = models.CharField(max_length=20)
-    type = models.CharField(max_length=20)
+    job_type = models.CharField(max_length=20)
+    description = models.CharField(max_length=4000)
 
     def __str__(self):
-        return f"{self.company} {self.role} {date}"
+        return f"{self.company} {self.role} {self.date}"
