@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Jobs from "./Jobs";
-
 import { createGlobalStyle } from "styled-components";
+import axios from "axios";
+
+import Jobs from "Jobs";
+
+export const api = axios.create();
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto');
