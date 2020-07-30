@@ -19,3 +19,16 @@ interface Listing {
   mailto: string;
   description: string;
 }
+
+interface ListingStarted {
+  type: "listing/started";
+}
+
+interface ListingFinished {
+  type: "listing/finished";
+  listings?: Listing[];
+  error?: string;
+}
+
+type ListingActions = ListingStarted | ListingFinished;
+
