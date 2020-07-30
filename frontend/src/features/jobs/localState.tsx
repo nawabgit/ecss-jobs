@@ -32,3 +32,22 @@ interface ListingFinished {
 
 type ListingActions = ListingStarted | ListingFinished;
 
+/**
+ * Retrieves job listings from API
+ */
+export const doGetListings = () => async (
+  dispatch: React.Dispatch<ListingActions>
+) => {
+  dispatch({ type: "listing/started" });
+
+  try {
+    const response = await api.get<Listing[]>("/jobs/listings/");
+    dispatch({ type: "listing/finished", listings: response.data });
+  } catch (e) {
+    dispatch({
+      type: "listing/finished",
+      error: "Failed to retrieve job listings",
+    });
+  }
+};
+
