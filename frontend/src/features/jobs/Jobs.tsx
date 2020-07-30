@@ -15,7 +15,7 @@ import tpp from "common/images/tpp.png";
 import factset from "common/images/factset.jpg";
 import graphcore from "common/images/graphcore.svg";
 import jpmorgan from "common/images/jpmorgan.jpg";
-import useProducerWithThunks from "common/hooks/useProducer";
+import { useProducerWithThunks } from "common/hooks/useProducer";
 
 import {
   doGetListings,
