@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { createGlobalStyle } from "styled-components";
 import axios from "axios";
 
-import Jobs from "Jobs";
+import Jobs from "features/jobs/Jobs";
 
 export const api = axios.create();
 
