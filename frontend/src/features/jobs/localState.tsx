@@ -63,3 +63,22 @@ export const defaultListingState: ListingState = {
   error: null,
 };
 
+export const listingRecipe: Recipe<ListingState, ListingActions> = (
+  draft,
+  action
+) => {
+  switch (action.type) {
+    case "listing/started":
+      draft.pending = true;
+      return;
+
+    case "listing/finished":
+      draft.pending = false;
+      draft.listings = action.listings;
+      draft.error = action.error;
+      return;
+
+    default:
+      exhaustivnessCheck(action);
+  }
+};
