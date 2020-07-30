@@ -9,14 +9,19 @@ import MapMarkerIcon from "mdi-react/MapMarkerIcon";
 import ShareOutlineIcon from "mdi-react/ShareOutlineIcon";
 import EmailOutlineIcon from "mdi-react/EmailOutlineIcon";
 
-import { api } from "index";
-
 import ECSSLogo from "common/images/ecsslogo.png";
 import arm from "common/images/arm.png";
 import tpp from "common/images/tpp.png";
 import factset from "common/images/factset.jpg";
 import graphcore from "common/images/graphcore.svg";
 import jpmorgan from "common/images/jpmorgan.jpg";
+import useProducerWithThunks from "common/hooks/useProducer";
+
+import {
+  doGetListings,
+  listingRecipe,
+  defaultListingState,
+} from "features/jobs/localState";
 
 const MainContainer = styled.div`
   display: flex;
@@ -367,7 +372,12 @@ function JobDetailsContent({
 }
 
 function Jobs() {
-  const listings = api.get("jobs/listings");
+  const [listings, dispatch] = useProducerWithThunks(
+    listingRecipe,
+    defaultListingState
+  );
+
+  React.useEffect(() => dispatch(doGetListings()), [dispatch]);
 
   return (
     <MainContainer>
