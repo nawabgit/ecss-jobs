@@ -16,6 +16,11 @@ type ExtractRecipeActions<R extends Recipe<any, any>> = R extends Recipe<
   ? Actions
   : never;
 
+type ProducerReturnTuple<R extends Recipe<any, any>> = [
+  ExtractRecipeState<R>,
+  React.Dispatch<ExtractRecipeActions<R>>
+];
+
 /**
  * A convenient wrapper around `React.useReducer` which wraps the state into [`immer`](https://github.com/immerjs/immer).
  *
@@ -53,16 +58,22 @@ type ExtractRecipeActions<R extends Recipe<any, any>> = R extends Recipe<
 function useProducer<R extends Recipe<any, any>, I>(
   recipe: R,
   initialArg: I,
-  init?: (arg: I) => ExtractRecipeState<R>
-) {
-  type State = Readonly<ExtractRecipeState<R>>;
+  init: (arg: I) => ExtractRecipeState<R>
+): ProducerReturnTuple<R>;
+
+function useProducer<R extends Recipe<any, any>, I>(
+  recipe: R,
+  initialArg: I & ExtractRecipeState<R>,
+  init: (arg: I & ExtractRecipeState<R>) => ExtractRecipeState<R> = (arg) => arg
+): ProducerReturnTuple<R> {
+  type State = ExtractRecipeState<R>;
   type Actions = ExtractRecipeActions<R>;
   const reducer: React.Reducer<State, Actions> = React.useMemo(
     () => (state, action) =>
       produce(state, (draft) => recipe(draft, action, state)),
     [recipe]
   );
-  return React.useReducer(reducer, initialArg as State, init as undefined);
+  return React.useReducer(reducer, initialArg, init);
 }
 
 /**
@@ -74,8 +85,8 @@ function useProducer<R extends Recipe<any, any>, I>(
  */
 export function useProducerWithThunks<R extends Recipe<any, any>, I>(
   recipe: R,
-  initialArg: I,
-  init?: (arg: I) => ExtractRecipeState<R>
+  initialArg: I & ExtractRecipeState<R>,
+  init: (arg: I & ExtractRecipeState<R>) => ExtractRecipeState<R> = (arg) => arg
 ) {
   type State = Readonly<ExtractRecipeState<R>>;
   type Actions = ExtractRecipeActions<R>;
