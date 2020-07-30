@@ -51,3 +51,15 @@ export const doGetListings = () => async (
   }
 };
 
+interface ListingState {
+  pending: boolean;
+  listings: Listing[] | null | undefined;
+  error: string | null | undefined;
+}
+
+export const defaultListingState: ListingState = {
+  pending: false,
+  listings: null,
+  error: null,
+};
+
