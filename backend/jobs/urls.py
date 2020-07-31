@@ -4,6 +4,8 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'listings', views.ListingViewSet)
+router.register(r'companies', views.CompanyViewSet)
+router.register(r'sponsors', views.SponsorViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
