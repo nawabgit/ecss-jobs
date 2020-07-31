@@ -5,7 +5,7 @@ from datetime import datetime
 
 class Company(models.Model):
     name = models.CharField(max_length=60, help_text="E.g. btecSolutions")
-    image = models.FileField(upload_to="images/", blank=True, help_text="SVG highly preferable - 1:1 aspect ratio only")
+    image = models.FileField(upload_to="logos/", blank=True, default="logos/ecsslogo.png", help_text="SVG highly preferable - 1:1 aspect ratio only")
 
     def __str__(self):
         return f"{self.name}"
