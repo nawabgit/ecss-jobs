@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import ReactMarkdown from "react-markdown";
+import { differenceInDays } from "date-fns";
 
 import ClockTimeThreeIconOutline from "mdi-react/ClockTimeThreeOutlineIcon";
 import CashIcon from "mdi-react/CashIcon";
@@ -18,6 +19,7 @@ import jpmorgan from "common/images/jpmorgan.jpg";
 import { useProducerWithThunks } from "common/hooks/useProducer";
 
 import {
+  Listing,
   doGetListings,
   listingRecipe,
   defaultListingState,
@@ -103,19 +105,19 @@ const BasicJob = styled.div`
   }
 `;
 
-const SponsorStrip = styled.div`
+const Strip = styled.div`
   width: 30px;
 `;
 
-const GoldSponsorStrip = styled(SponsorStrip)`
+const GoldSponsorStrip = styled(Strip)`
   background-color: gold;
 `;
 
-const SilverSponsorStrip = styled(SponsorStrip)`
+const SilverSponsorStrip = styled(Strip)`
   background-color: silver;
 `;
 
-const BronzeSponsorStrip = styled(SponsorStrip)`
+const BronzeSponsorStrip = styled(Strip)`
   background-color: #b08d57;
 `;
 
@@ -266,81 +268,47 @@ const DetailsBody = styled.div`
   padding: 20px 40px;
   margin-top: 20px;
 `;
-
-interface Job {
-  company: string;
-  role: string;
-  location: string;
-  salary: string;
-  duration: string;
-  date: string;
+interface Strip {
+  sponsor_level: string | undefined;
 }
 
-interface JobListing extends Job {
-  img: string;
+function SponsorStrip({ sponsor_level }: Strip) {
+  switch (sponsor_level) {
+    case "bronze":
+      return <BronzeSponsorStrip />;
+    case "silver":
+      return <SilverSponsorStrip />;
+    case "gold":
+      return <GoldSponsorStrip />;
+    default:
+      return <Strip />;
+  }
 }
 
-interface JobDescription extends Job {
-  description: string;
-}
-
-function JobContent({
+function JobCard({
   company,
-  img,
-  role,
-  location,
-  salary,
-  duration,
   date,
-}: JobListing) {
-  return (
-    <InnerJobContainer>
-      <Image src={img} />
-      <JobContents>
-        <JobHeader>
-          <JobHeaderField>{company}</JobHeaderField>
-          <JobDate>{date}</JobDate>
-        </JobHeader>
-        <JobRole>{role}</JobRole>
-        <JobIcons>
-          <IconContainer>
-            <CashIcon />
-            <IconText>{salary}</IconText>
-          </IconContainer>
-          <IconContainer>
-            <MapMarkerIcon />
-            <IconText>{location}</IconText>
-          </IconContainer>
-          <IconContainer>
-            <ClockTimeThreeIconOutline />
-            <IconText>{duration}</IconText>
-          </IconContainer>
-        </JobIcons>
-      </JobContents>
-    </InnerJobContainer>
-  );
-}
+  role,
+  salary_preview,
+  location,
+  job_type,
+}: Listing) {
+  const daysAgo = differenceInDays(Date.now(), new Date(date));
 
-function JobDetailsContent({
-  company,
-  role,
-  location,
-  salary,
-  duration,
-  date,
-  description,
-}: JobDescription) {
   return (
-    <DetailsContainer>
-      <DetailsHeader>
-        <DetailsMeta>
-          <JobHeaderField>{company}</JobHeaderField>
+    <BasicJob tabIndex={1}>
+      <InnerJobContainer>
+        <Image src={company.image} />
+        <JobContents>
+          <JobHeader>
+            <JobHeaderField>{company.name}</JobHeaderField>
+            <JobDate>{daysAgo ? daysAgo + " d" : "Today"}</JobDate>
+          </JobHeader>
           <JobRole>{role}</JobRole>
-          <JobLocation>{date}</JobLocation>
-          <DetailsIcons>
+          <JobIcons>
             <IconContainer>
               <CashIcon />
-              <IconText>{salary}</IconText>
+              <IconText>{salary_preview}</IconText>
             </IconContainer>
             <IconContainer>
               <MapMarkerIcon />
@@ -348,7 +316,46 @@ function JobDetailsContent({
             </IconContainer>
             <IconContainer>
               <ClockTimeThreeIconOutline />
-              <IconText>{duration}</IconText>
+              <IconText>{job_type}</IconText>
+            </IconContainer>
+          </JobIcons>
+        </JobContents>
+      </InnerJobContainer>
+      <SponsorStrip sponsor_level={company.sponsor_level} />
+    </BasicJob>
+  );
+}
+
+function JobDetailsContent({
+  company,
+  role,
+  location,
+  full_salary,
+  job_type,
+  date,
+  description,
+}: Listing) {
+  return (
+    <DetailsContainer>
+      <DetailsHeader>
+        <DetailsMeta>
+          <JobHeaderField>{company.name}</JobHeaderField>
+          <JobRole>{role}</JobRole>
+          <JobLocation>
+            Posted on {new Date(date).toLocaleDateString()}
+          </JobLocation>
+          <DetailsIcons>
+            <IconContainer>
+              <CashIcon />
+              <IconText>{full_salary}</IconText>
+            </IconContainer>
+            <IconContainer>
+              <MapMarkerIcon />
+              <IconText>{location}</IconText>
+            </IconContainer>
+            <IconContainer>
+              <ClockTimeThreeIconOutline />
+              <IconText>{job_type}</IconText>
             </IconContainer>
           </DetailsIcons>
         </DetailsMeta>
@@ -376,6 +383,7 @@ function Jobs() {
     listingRecipe,
     defaultListingState
   );
+  const [selected, setSelected] = useState(0);
 
   React.useEffect(() => dispatch(doGetListings()), [dispatch]);
 
@@ -414,6 +422,13 @@ function Jobs() {
             </FilterSelect>
           </FilterContainer>
           <JobsContainer>
+            {!!listings.listings &&
+              listings.listings.map((listing, index) => (
+                <div onClick={() => setSelected(index)}>
+                  <JobCard {...listing} />
+                </div>
+              ))}
+            {/**
             <BasicJob tabIndex={1}>
               <JobContent
                 company={"Arm"}
@@ -484,7 +499,7 @@ function Jobs() {
                 duration={"Duration"}
                 date={"Days ago d"}
               ></JobContent>
-              <SponsorStrip />
+              <Strip />
             </BasicJob>
             <BasicJob tabIndex={5}>
               <JobContent
@@ -496,7 +511,7 @@ function Jobs() {
                 duration={"Duration"}
                 date={"Days ago d"}
               ></JobContent>
-              <SponsorStrip />
+              <Strip />
             </BasicJob>
             <BasicJob tabIndex={5}>
               <JobContent
@@ -508,7 +523,7 @@ function Jobs() {
                 duration={"Duration"}
                 date={"Days ago d"}
               ></JobContent>
-              <SponsorStrip />
+              <Strip />
             </BasicJob>
             <BasicJob tabIndex={5}>
               <JobContent
@@ -520,7 +535,7 @@ function Jobs() {
                 duration={"Duration"}
                 date={"Days ago d"}
               ></JobContent>
-              <SponsorStrip />
+              <Strip />
             </BasicJob>
             <BasicJob tabIndex={5}>
               <JobContent
@@ -532,7 +547,7 @@ function Jobs() {
                 duration={"Duration"}
                 date={"Days ago d"}
               ></JobContent>
-              <SponsorStrip />
+              <Strip />
             </BasicJob>
             <BasicJob tabIndex={5}>
               <JobContent
@@ -544,7 +559,7 @@ function Jobs() {
                 duration={"Duration"}
                 date={"Days ago d"}
               ></JobContent>
-              <SponsorStrip />
+              <Strip />
             </BasicJob>
             <BasicJob tabIndex={5}>
               <JobContent
@@ -556,11 +571,16 @@ function Jobs() {
                 duration={"Duration"}
                 date={"Days ago d"}
               ></JobContent>
-              <SponsorStrip />
+              <Strip />
             </BasicJob>
+            */}
           </JobsContainer>
         </JobsList>
         <Details>
+          {!!listings.listings && (
+            <JobDetailsContent {...listings.listings[selected]} />
+          )}
+          {/**
           <JobDetailsContent
             company={"Arm"}
             role={"Graduate Engineer"}
@@ -603,6 +623,7 @@ The following skills would be nice to have:
 * Knowledge of microprocessor, ASIC systems
 * Assembly language programming, ideally in Arm assembler`}
           />
+          */}
         </Details>
       </JobsCard>
     </MainContainer>
