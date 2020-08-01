@@ -5,9 +5,13 @@ import { Recipe } from "common/hooks/useProducer";
 
 // Retrieve all the listings for the job board
 
-interface Listing {
-  company: string;
-  image: string;
+export interface Listing {
+  company: {
+    name: string;
+    image: string;
+    sponsor_level?: string;
+    website?: string;
+  };
   role: string;
   date: string;
   full_salary: string;
