@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.text import slugify
+
 from datetime import datetime
 
 # Create db models here
@@ -30,17 +32,17 @@ class Sponsor(models.Model):
 
 class Listing(models.Model):
     JOB_TYPE_CHOICES = [
-        ('competition', 'Competition'),
-        ('grant', 'Grant'),
-        ('scholarship', 'Scholarship'),
-        ('internship', 'Internship'),
-        ('placement', 'Placement'),
-        ('part-time', 'Part Time'),
-        ('full-time', 'Full Time'),
-        ('graduate', 'Graduate'),
+        ('Competition', 'Competition'),
+        ('Grant', 'Grant'),
+        ('Scholarship', 'Scholarship'),
+        ('Internship', 'Internship'),
+        ('Placement', 'Placement'),
+        ('Part-Time', 'Part Time'),
+        ('Full-Time', 'Full Time'),
+        ('Graduate', 'Graduate'),
     ]
 
-    company = models.OneToOneField(Company, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
     role = models.CharField(max_length=60, help_text="E.g. Software Engineer")
     date = models.DateTimeField(default=datetime.now, help_text="The date and time the listing will be posted")
     full_salary = models.CharField(max_length=60, help_text="E.g. '£30,000 - £40,000 p.a.' or '£12.50 p.h.'")
@@ -51,6 +53,13 @@ class Listing(models.Model):
     apply_url = models.URLField(help_text="The URL that the apply button will reroute to")
     mailto = models.CharField(max_length=255, help_text="The mailto link (preferably with ECSS in subject)")
     description = models.TextField(help_text="The Markdown job description. See: https://www.markdownguide.org/basic-syntax/")
-
+    slug = models.SlugField(max_length=255,blank=True, null=True,editable=False, unique=True)
+    
     def __str__(self):
         return f"{self.company} {self.job_type} {self.role} {self.date}"
+
+    def save(self, **kwargs):
+        super(Listing, self).save(**kwargs)
+        if not self.slug:
+            self.slug = slugify(self.company.name) + "-" + slugify(self.role)+ "-" + str(self.id)
+            self.save()
