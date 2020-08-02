@@ -36,6 +36,12 @@ interface ListingFinished {
 
 type ListingActions = ListingStarted | ListingFinished;
 
+const weights: { [key: string]: number } = {
+  gold: 3,
+  silver: 2,
+  bronze: 1,
+};
+
 /**
  * Retrieves job listings from API
  */
@@ -46,7 +52,18 @@ export const doGetListings = () => async (
 
   try {
     const response = await api.get<Listing[]>("/jobs/listings/");
-    dispatch({ type: "listing/finished", listings: response.data });
+
+    // Sort by sponsor level
+    // API is already sorted by date
+    const listings = response.data;
+    listings.sort((a, b) =>
+      a.company.sponsor_level && b.company.sponsor_level
+        ? weights[b.company.sponsor_level] - weights[a.company.sponsor_level]
+        : b.company.sponsor_level
+        ? 1
+        : -1
+    );
+    dispatch({ type: "listing/finished", listings: listings });
   } catch (e) {
     dispatch({
       type: "listing/finished",
