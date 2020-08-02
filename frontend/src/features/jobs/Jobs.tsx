@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Select from "react-select";
 
 import ReactMarkdown from "react-markdown";
 import { differenceInDays } from "date-fns";
@@ -67,14 +68,25 @@ const ECSSImg = styled.img`
 const FilterContainer = styled.div`
   display: flex;
   text-align: center;
-  margin-left: 20px;
+  margin-left: 10px;
   margin-bottom: 20px;
+`;
+
+const FilteredSelect = styled(Select)`
+  flex: 1;
+  text-align: left;
 `;
 
 const FilterText = styled.span`
   font-size: 12pt;
   text-align: center;
-  padding-top: 3px;
+`;
+
+const FilterHolder = styled.div`
+  flex: 1;
+  margin-left: 10px;
+  padding-top: 30px;
+  border: gray solid 1px;
 `;
 
 const FilterSelect = styled.select`
@@ -101,7 +113,7 @@ const BasicJob = styled.div`
   }
 
   &:focus {
-    outline: black solid 3px;
+    outline: #2684ff solid 3px;
   }
 `;
 
@@ -379,11 +391,49 @@ function JobDetailsContent({
 }
 
 function Jobs() {
-  const [listings, dispatch] = useProducerWithThunks(
+  const [state, dispatch] = useProducerWithThunks(
     listingRecipe,
     defaultListingState
   );
+  // TODO null
   const [selected, setSelected] = useState(0);
+  const [selectingFilters, setSelectingFilters] = useState(false);
+
+  const selectOptions = [
+    {
+      label: "Type",
+      options: [
+        { value: "Competition", label: "Competition" },
+        { value: "Grant", label: "Grant" },
+        { value: "Scholarship", label: "Scholarship" },
+        { value: "Internship", label: "Internship" },
+        { value: "Placement", label: "Placement" },
+        { value: "Graduate", label: "Graduate" },
+        { value: "Part-Time", label: "Part-Time" },
+        { value: "Full-Time", label: "Full-Time" },
+      ],
+    },
+    {
+      label: "Location",
+      options: [
+        { value: "Bristol", label: "Bristol" },
+        { value: "Leeds", label: "Leeds" },
+        { value: "London", label: "London" },
+        { value: "Manchester", label: "Manchester" },
+        { value: "Remote", label: "Remote" },
+        { value: "Other", label: "Other" },
+      ],
+    },
+    {
+      label: "Posted",
+      options: [
+        { value: "Today", label: "Today" },
+        { value: "3 Days", label: "Last 3 Days" },
+        { value: "7 Days", label: "Last Week" },
+        { value: "1 Month", label: "Last Month" },
+      ],
+    },
+  ];
 
   React.useEffect(() => dispatch(doGetListings()), [dispatch]);
 
@@ -396,34 +446,16 @@ function Jobs() {
             <span>ECSS Job Board</span>
           </JobsTitle>
           <FilterContainer>
-            <FilterText>Filters:</FilterText>
-            <FilterSelect name="types" id="type">
-              <option value="alljobs">All Job Types</option>
-              <option value="internship">Internship</option>
-              <option value="placement">Placement</option>
-              <option value="parttime">Part-Time</option>
-              <option value="fulltime">Full-Time</option>
-            </FilterSelect>
-            <FilterSelect name="location" id="location">
-              <option value="alllocations">All Locations</option>
-              <option value="remote">Remote</option>
-              <option value="london">London</option>
-              <option value="manchester">Manchester</option>
-              <option value="leeds">Leeds</option>
-              <option value="bristol">Bristol</option>
-              <option value="other">Other</option>
-            </FilterSelect>
-            <FilterSelect name="time" id="time">
-              <option value="alltimes">Posted Any Time</option>
-              <option value="day">Last Day</option>
-              <option value="3day">Last 3 Days</option>
-              <option value="week">Last Week</option>
-              <option value="month">Last Month</option>
-            </FilterSelect>
+            <FilteredSelect
+              placeholder="Select filters..."
+              isMulti
+              isClearable
+              options={selectOptions}
+            />
           </FilterContainer>
           <JobsContainer>
-            {!!listings.listings &&
-              listings.listings.map((listing, index) => (
+            {!!state.listings &&
+              state.listings.map((listing, index) => (
                 <div onClick={() => setSelected(index)}>
                   <JobCard {...listing} />
                 </div>
@@ -577,8 +609,8 @@ function Jobs() {
           </JobsContainer>
         </JobsList>
         <Details>
-          {!!listings.listings && (
-            <JobDetailsContent {...listings.listings[selected]} />
+          {!!state.listings && (
+            <JobDetailsContent {...state.listings[selected]} />
           )}
           {/**
           <JobDetailsContent
