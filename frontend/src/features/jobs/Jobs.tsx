@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Select from "react-select";
+import Ripples from "react-ripples";
 
 import ReactMarkdown from "react-markdown";
 import { differenceInDays } from "date-fns";
@@ -245,7 +246,7 @@ const DetailsContact = styled.div`
   padding: 15px 10px 0px 0px;
 `;
 
-const DetailsContactButton = styled.button`
+const DetailsContactButton = styled(Ripples)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -256,13 +257,17 @@ const DetailsContactButton = styled.button`
   border: none;
   outline: none;
   color: white;
-  background-color: #c62121;
+  background-color: #d3001a;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 
   .mdi-icon {
     margin-right: 5px;
     font-size: 14pt;
   }
+`;
+
+const ButtonText = styled.span`
+  user-select: none;
 `;
 
 const DetailsBorder = styled.div`
@@ -375,12 +380,14 @@ function JobDetailsContent({
         <DetailsContact>
           <DetailsContactButton>
             <ShareOutlineIcon />
-            <span>Apply</span>
+            <ButtonText>Apply</ButtonText>
           </DetailsContactButton>
-          <DetailsContactButton>
-            <EmailOutlineIcon />
-            <span>Email</span>
-          </DetailsContactButton>
+          <Ripples>
+            <DetailsContactButton>
+              <EmailOutlineIcon />
+              <ButtonText>Email</ButtonText>
+            </DetailsContactButton>
+          </Ripples>
         </DetailsContact>
       </DetailsHeader>
       <DetailsBorder />
