@@ -286,6 +286,7 @@ const DetailsBody = styled.div`
   padding: 20px 40px;
   margin-top: 20px;
 `;
+
 interface Strip {
   sponsor_level: string | undefined;
 }
@@ -402,50 +403,89 @@ function JobDetailsContent({
   );
 }
 
+interface Option {
+  value: any;
+  label: string;
+}
+
+const typeFilters = [
+  { value: "Competition", label: "Competition" },
+  { value: "Grant", label: "Grant" },
+  { value: "Scholarship", label: "Scholarship" },
+  { value: "Internship", label: "Internship" },
+  { value: "Placement", label: "Placement" },
+  { value: "Graduate", label: "Graduate" },
+  { value: "Part-Time", label: "Part-Time" },
+  { value: "Full-Time", label: "Full-Time" },
+];
+const typeLabels = typeFilters.map((o) => o.label);
+
+const locationFilters = [
+  { value: "Bristol", label: "Bristol" },
+  { value: "Leeds", label: "Leeds" },
+  { value: "London", label: "London" },
+  { value: "Manchester", label: "Manchester" },
+  { value: "Remote", label: "Remote" },
+  { value: "Other", label: "Other" },
+];
+const locationLabels = locationFilters.map((o) => o.label);
+
+const timeFilters = [
+  { value: 0, label: "Today" },
+  { value: 3, label: "Last 3 Days" },
+  { value: 7, label: "Last Week" },
+  { value: 30, label: "Last Month" },
+];
+const timeLabels = timeFilters.map((o) => o.label);
+
+const selectOptions = [
+  {
+    label: "Type",
+    options: typeFilters,
+  },
+  {
+    label: "Location",
+    options: locationFilters,
+  },
+  {
+    label: "Posted",
+    options: timeFilters,
+  },
+];
+
+interface filterMap {
+  [key: string]: string[];
+}
+
+function sortFilters(values: Option[]): filterMap {
+  const rv: filterMap = {
+    type: [],
+    location: [],
+    posted: [],
+  };
+
+  for (var item in values) {
+    if (item in typeLabels) {
+      rv.type.push(values[item].label);
+    } else if (item in locationLabels) {
+      rv.location.push(values[item].label);
+    } else if (item in typeLabels) {
+      rv.posted.push(values[item].label);
+    }
+  }
+
+  return rv;
+}
+
 function Jobs() {
   const [state, dispatch] = useProducerWithThunks(
     listingRecipe,
     defaultListingState
   );
-  // TODO null
   const [selected, setSelected] = useState(0);
-  const [selectingFilters, setSelectingFilters] = useState(false);
-
-  const selectOptions = [
-    {
-      label: "Type",
-      options: [
-        { value: "Competition", label: "Competition" },
-        { value: "Grant", label: "Grant" },
-        { value: "Scholarship", label: "Scholarship" },
-        { value: "Internship", label: "Internship" },
-        { value: "Placement", label: "Placement" },
-        { value: "Graduate", label: "Graduate" },
-        { value: "Part-Time", label: "Part-Time" },
-        { value: "Full-Time", label: "Full-Time" },
-      ],
-    },
-    {
-      label: "Location",
-      options: [
-        { value: "Bristol", label: "Bristol" },
-        { value: "Leeds", label: "Leeds" },
-        { value: "London", label: "London" },
-        { value: "Manchester", label: "Manchester" },
-        { value: "Remote", label: "Remote" },
-        { value: "Other", label: "Other" },
-      ],
-    },
-    {
-      label: "Posted",
-      options: [
-        { value: "Today", label: "Today" },
-        { value: "3 Days", label: "Last 3 Days" },
-        { value: "7 Days", label: "Last Week" },
-        { value: "1 Month", label: "Last Month" },
-      ],
-    },
-  ];
+  const [selectingFilters, setSelectingFilters] = useState<filterMap | null>(
+    null
+  );
 
   React.useEffect(() => dispatch(doGetListings()), [dispatch]);
 
@@ -462,9 +502,13 @@ function Jobs() {
               placeholder="Select filters..."
               isMulti
               isClearable
+              onChange={(values: Option[] | null) =>
+                setSelectingFilters(values ? sortFilters(values) : values)
+              }
               options={selectOptions}
             />
           </FilterContainer>
+          {selectingFilters}
           <JobsContainer>
             {state.pending ? (
               <Flex>
