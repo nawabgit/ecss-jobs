@@ -246,17 +246,18 @@ const DetailsContact = styled.div`
   padding: 15px 10px 0px 0px;
 `;
 
-const DetailsContactButton = styled(Ripples)`
+const ContactButton = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0px 10px;
   width: 100px;
   height: 50px;
-  padding: 0;
+  margin: 0px 10px;
+  padding: 0px;
   border: none;
   outline: none;
   color: white;
+  text-decoration: none;
   background-color: #d3001a;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 
@@ -264,6 +265,16 @@ const DetailsContactButton = styled(Ripples)`
     margin-right: 5px;
     font-size: 14pt;
   }
+  .react-ripples {
+    flex: 1;
+    height: 100%;
+  }
+`;
+
+const Ripple = styled(Ripples)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ButtonText = styled.span`
@@ -352,6 +363,8 @@ function JobDetailsContent({
   job_type,
   date,
   description,
+  apply_url,
+  mailto,
 }: Listing) {
   return (
     <DetailsContainer>
@@ -378,16 +391,18 @@ function JobDetailsContent({
           </DetailsIcons>
         </DetailsMeta>
         <DetailsContact>
-          <DetailsContactButton>
-            <ShareOutlineIcon />
-            <ButtonText>Apply</ButtonText>
-          </DetailsContactButton>
-          <Ripples>
-            <DetailsContactButton>
+          <ContactButton href={apply_url} target="_blank">
+            <Ripple>
+              <ShareOutlineIcon />
+              <ButtonText>Apply</ButtonText>
+            </Ripple>
+          </ContactButton>
+          <ContactButton href={mailto}>
+            <Ripple>
               <EmailOutlineIcon />
               <ButtonText>Email</ButtonText>
-            </DetailsContactButton>
-          </Ripples>
+            </Ripple>
+          </ContactButton>
         </DetailsContact>
       </DetailsHeader>
       <DetailsBorder />
