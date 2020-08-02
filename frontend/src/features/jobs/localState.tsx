@@ -58,7 +58,9 @@ export const doGetListings = () => async (
     const listings = response.data;
     listings.sort((a, b) =>
       a.company.sponsor_level && b.company.sponsor_level
-        ? weights[b.company.sponsor_level] - weights[a.company.sponsor_level]
+        ? weights[b.company.sponsor_level] > weights[a.company.sponsor_level]
+          ? 1
+          : -1
         : b.company.sponsor_level
         ? 1
         : -1
