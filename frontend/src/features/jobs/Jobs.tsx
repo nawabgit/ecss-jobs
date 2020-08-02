@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Select from "react-select";
 import Ripples from "react-ripples";
+import Skeleton from "react-loading-skeleton";
+import FadeIn from "react-fade-in";
 
 import ReactMarkdown from "react-markdown";
 import { differenceInDays } from "date-fns";
@@ -69,8 +71,7 @@ const ECSSImg = styled.img`
 const FilterContainer = styled.div`
   display: flex;
   text-align: center;
-  margin-left: 10px;
-  margin-bottom: 20px;
+  margin: 10px 10px 30px 10px;
 `;
 
 const FilteredSelect = styled(Select)`
@@ -78,25 +79,13 @@ const FilteredSelect = styled(Select)`
   text-align: left;
 `;
 
-const FilterText = styled.span`
-  font-size: 12pt;
-  text-align: center;
-`;
-
-const FilterHolder = styled.div`
+const Flex = styled.div`
   flex: 1;
-  margin-left: 10px;
-  padding-top: 30px;
-  border: gray solid 1px;
-`;
-
-const FilterSelect = styled.select`
-  padding: 3px;
-  margin-left: 10px;
 `;
 
 const JobsContainer = styled.div`
   display: flex;
+  height: 100%;
   max-height: 100%;
   padding: 4px 10px;
   overflow-y: auto;
@@ -477,12 +466,20 @@ function Jobs() {
             />
           </FilterContainer>
           <JobsContainer>
-            {!!state.listings &&
-              state.listings.map((listing, index) => (
-                <div onClick={() => setSelected(index)}>
-                  <JobCard {...listing} />
-                </div>
-              ))}
+            {state.pending ? (
+              <Flex>
+                <Skeleton style={{ flex: 1, height: "100%" }} />
+              </Flex>
+            ) : (
+              <FadeIn>
+                {!!state.listings &&
+                  state.listings.map((listing, index) => (
+                    <div onClick={() => setSelected(index)}>
+                      <JobCard {...listing} />
+                    </div>
+                  ))}
+              </FadeIn>
+            )}
             {/**
             <BasicJob tabIndex={1}>
               <JobContent
