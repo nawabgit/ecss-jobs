@@ -113,7 +113,8 @@ const BasicJob = styled.div`
   }
 
   &:focus {
-    outline: #2684ff solid 3px;
+    transition: 0s;
+    outline: #2684ff solid 2px;
   }
 `;
 
