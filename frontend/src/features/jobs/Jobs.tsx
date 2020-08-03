@@ -27,6 +27,8 @@ import {
   doGetListings,
   listingRecipe,
   defaultListingState,
+  Option,
+  doFilterListings,
 } from "features/jobs/localState";
 
 const MainContainer = styled.div`
@@ -403,11 +405,6 @@ function JobDetailsContent({
   );
 }
 
-interface Option {
-  value: any;
-  label: string;
-}
-
 const typeFilters = [
   { value: "Competition", label: "Competition" },
   { value: "Grant", label: "Grant" },
@@ -418,7 +415,7 @@ const typeFilters = [
   { value: "Part-Time", label: "Part-Time" },
   { value: "Full-Time", label: "Full-Time" },
 ];
-const typeLabels = typeFilters.map((o) => o.label);
+export const typeLabels = typeFilters.map((o) => o.label);
 
 const locationFilters = [
   { value: "Bristol", label: "Bristol" },
@@ -428,7 +425,7 @@ const locationFilters = [
   { value: "Remote", label: "Remote" },
   { value: "Other", label: "Other" },
 ];
-const locationLabels = locationFilters.map((o) => o.label);
+export const locationLabels = locationFilters.map((o) => o.label);
 
 const timeFilters = [
   { value: 0, label: "Today" },
@@ -436,7 +433,7 @@ const timeFilters = [
   { value: 7, label: "Last Week" },
   { value: 30, label: "Last Month" },
 ];
-const timeLabels = timeFilters.map((o) => o.label);
+export const timeLabels = timeFilters.map((o) => o.label);
 
 const selectOptions = [
   {
@@ -453,42 +450,22 @@ const selectOptions = [
   },
 ];
 
-interface filterMap {
-  [key: string]: string[];
-}
-
-function sortFilters(values: Option[]): filterMap {
-  const rv: filterMap = {
-    type: [],
-    location: [],
-    posted: [],
-  };
-
-  for (var item in values) {
-    if (item in typeLabels) {
-      rv.type.push(values[item].label);
-    } else if (item in locationLabels) {
-      rv.location.push(values[item].label);
-    } else if (item in typeLabels) {
-      rv.posted.push(values[item].label);
-    }
-  }
-
-  return rv;
-}
-
 function Jobs() {
+  const [selected, setSelected] = useState(0);
+  const [selectingFilters, setSelectingFilters] = useState<Option[]>([]);
+
   const [state, dispatch] = useProducerWithThunks(
     listingRecipe,
     defaultListingState
   );
-  const [selected, setSelected] = useState(0);
-  const [selectingFilters, setSelectingFilters] = useState<filterMap | null>(
-    null
-  );
 
   React.useEffect(() => dispatch(doGetListings()), [dispatch]);
-
+  const { pendingSorted, listings } = state;
+  React.useEffect(() => {
+    if (!pendingSorted && !!listings) {
+      dispatch(doFilterListings(listings, selectingFilters));
+    }
+  }, [listings, selectingFilters, dispatch]);
   return (
     <MainContainer>
       <JobsCard>
@@ -502,27 +479,26 @@ function Jobs() {
               placeholder="Select filters..."
               isMulti
               isClearable
-              onChange={(values: Option[] | null) =>
-                setSelectingFilters(values ? sortFilters(values) : values)
+              onChange={(values: Option[]) =>
+                setSelectingFilters(values ? values : [])
               }
               options={selectOptions}
             />
           </FilterContainer>
-          {selectingFilters}
           <JobsContainer>
-            {state.pending ? (
+            {state.pendingSorted ? (
               <Flex>
                 <Skeleton style={{ flex: 1, height: "100%" }} />
               </Flex>
             ) : (
-              <FadeIn>
-                {!!state.listings &&
-                  state.listings.map((listing, index) => (
+              <div>
+                {!!state.sortedListings &&
+                  state.sortedListings.map((listing, index) => (
                     <div onClick={() => setSelected(index)}>
                       <JobCard {...listing} />
                     </div>
                   ))}
-              </FadeIn>
+              </div>
             )}
             {/**
             <BasicJob tabIndex={1}>
