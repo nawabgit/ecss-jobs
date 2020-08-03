@@ -461,7 +461,7 @@ function Jobs() {
   );
 
   React.useEffect(() => dispatch(doGetListings()), [dispatch]);
-  const { pendingSorted, listings } = state;
+  const { pendingSorted, listings, sortedListings } = state;
   React.useEffect(() => {
     if (!pendingSorted && !!listings) {
       dispatch(doFilterListings(listings, selectingFilters));
@@ -487,14 +487,14 @@ function Jobs() {
             />
           </FilterContainer>
           <JobsContainer>
-            {state.pendingSorted ? (
+            {pendingSorted ? (
               <Flex>
                 <Skeleton style={{ flex: 1, height: "100%" }} />
               </Flex>
             ) : (
               <div>
-                {!!state.sortedListings &&
-                  state.sortedListings.map((listing, index) => (
+                {!!sortedListings &&
+                  sortedListings.map((listing, index) => (
                     <div onClick={() => setSelected(index)}>
                       <JobCard {...listing} />
                     </div>
@@ -650,8 +650,8 @@ function Jobs() {
           </JobsContainer>
         </JobsList>
         <Details>
-          {!!state.listings && (
-            <JobDetailsContent {...state.listings[selected]} />
+          {!!sortedListings && (
+            <JobDetailsContent {...sortedListings[selected]} />
           )}
           {/**
           <JobDetailsContent
