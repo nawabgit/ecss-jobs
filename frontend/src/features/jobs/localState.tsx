@@ -1,7 +1,9 @@
 import { api } from "index";
+import { typeLabels, locationLabels, timeLabels } from "features/jobs/Jobs";
 
 import exhaustivnessCheck from "common/utils/exhaustivenessCheck";
 import { Recipe } from "common/hooks/useProducer";
+import { differenceInDays } from "date-fns";
 
 // Retrieve all the listings for the job board
 
@@ -24,6 +26,11 @@ export interface Listing {
   description: string;
 }
 
+export interface Option {
+  value: any;
+  label: string;
+}
+
 interface ListingStarted {
   type: "listing/started";
 }
@@ -34,7 +41,20 @@ interface ListingFinished {
   error?: string;
 }
 
-type ListingActions = ListingStarted | ListingFinished;
+interface FilterStarted {
+  type: "filter/started";
+}
+
+interface FilterFinished {
+  type: "filter/finished";
+  listings?: Listing[];
+}
+
+type ListingActions =
+  | ListingStarted
+  | ListingFinished
+  | FilterStarted
+  | FilterFinished;
 
 const weights: { [key: string]: number } = {
   gold: 3,
@@ -74,15 +94,75 @@ export const doGetListings = () => async (
   }
 };
 
+interface filterMap {
+  type: string[];
+  location: string[];
+  posted: number[];
+}
+
+/**
+ * Filter job listings
+ */
+export const doFilterListings = (
+  listings: Listing[],
+  filters: Option[]
+) => async (dispatch: React.Dispatch<ListingActions>) => {
+  dispatch({ type: "filter/started" });
+
+  const rv: filterMap = {
+    type: [],
+    location: [],
+    posted: [Infinity],
+  };
+
+  for (var item of filters) {
+    var option = item.label;
+    console.log(option);
+    console.log(typeLabels);
+    if (typeLabels.includes(option)) {
+      rv.type.push(option);
+    } else if (locationLabels.includes(option)) {
+      rv.location.push(option);
+    } else if (timeLabels.includes(option)) {
+      rv.posted.push(item.value);
+    }
+  }
+
+  let sortedListings = listings;
+  if (rv.type.length) {
+    sortedListings = sortedListings.filter((listing) =>
+      rv.type.includes(listing.job_type)
+    );
+  }
+  if (rv.location.length) {
+    sortedListings = sortedListings.filter((listing) =>
+      rv.location.includes(listing.location)
+    );
+  }
+  if (rv.posted.length) {
+    sortedListings = sortedListings.filter(
+      (listing) =>
+        differenceInDays(Date.now(), new Date(listing.date)) <=
+        Math.min(...rv.posted)
+    );
+  }
+
+  dispatch({ type: "filter/finished", listings: sortedListings });
+};
+
 interface ListingState {
-  pending: boolean;
+  pendingListings: boolean;
+  pendingSorted: boolean;
   listings: Listing[] | null | undefined;
+  sortedListings: Listing[] | null | undefined;
   error: string | null | undefined;
 }
 
 export const defaultListingState: ListingState = {
-  pending: false,
+  pendingListings: false,
+  pendingSorted: false,
   listings: null,
+  sortedListings: null,
   error: null,
 };
 
@@ -92,13 +172,22 @@ export const listingRecipe: Recipe<ListingState, ListingActions> = (
 ) => {
   switch (action.type) {
     case "listing/started":
-      draft.pending = true;
+      draft.pendingListings = true;
       return;
 
     case "listing/finished":
-      draft.pending = false;
+      draft.pendingListings = false;
       draft.listings = action.listings;
       draft.error = action.error;
+      return;
+
+    case "filter/started":
+      draft.pendingSorted = true;
+      return;
+
+    case "filter/finished":
+      draft.pendingSorted = false;
+      draft.sortedListings = action.listings;
       return;
 
     default:
