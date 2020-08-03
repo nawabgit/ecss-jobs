@@ -204,6 +204,7 @@ const IconContainer = styled.div`
 `;
 
 const IconText = styled.span`
+  min-width: 80px;
   margin-left: 5px;
   font-size: 10pt;
 `;
