@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import styled from "styled-components";
 import Select from "react-select";
 import Ripples from "react-ripples";
@@ -6,6 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import FadeIn from "react-fade-in";
 
 import ReactMarkdown from "react-markdown";
+import { Switch, Route, RouteComponentProps, Link } from "react-router-dom";
 import { differenceInDays } from "date-fns";
 
 import ClockTimeThreeIconOutline from "mdi-react/ClockTimeThreeOutlineIcon";
@@ -107,6 +109,23 @@ const BasicJob = styled.div`
   &:focus {
     transition: 0s;
     outline: #2684ff solid 2px;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+    color: inherit;
+    cursor: inherit;
+  }
+
+  &:-webkit-any-link {
   }
 `;
 
@@ -451,6 +470,38 @@ const selectOptions = [
   },
 ];
 
+function True({ message }: { message: string }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignSelf: "center",
+        flexDirection: "column",
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        maxHeight: "100%",
+      }}
+    >
+      <ECSSImg src={ECSSLogo} style={{ maxHeight: "40%", marginBottom: 50 }} />
+    </div>
+  );
+}
+
+function False() {
+  return <div>Fail</div>;
+}
+
+type Params = { slug: string };
+const renderDetails = (
+  routerProps: RouteComponentProps<Params>,
+  listings: Listing[]
+) => {
+  let slug = routerProps.match.params.slug;
+  let foundListing = listings.find((listing) => listing.slug === slug);
+  return foundListing ? <JobDetailsContent {...foundListing} /> : <False />;
+};
+
 function Jobs() {
   const [selected, setSelected] = useState(0);
   const [selectingFilters, setSelectingFilters] = useState<Option[]>([]);
@@ -494,209 +545,26 @@ function Jobs() {
             ) : (
               <div>
                 {!!sortedListings &&
-                  sortedListings.map((listing, index) => (
-                    <div onClick={() => setSelected(index)}>
+                  sortedListings.map((listing) => (
+                    <StyledLink to={`/${listing.slug}`}>
                       <JobCard {...listing} />
-                    </div>
+                    </StyledLink>
                   ))}
               </div>
             )}
-            {/**
-            <BasicJob tabIndex={1}>
-              <JobContent
-                company={"Arm"}
-                img={arm}
-                role={"Graduate Engineer"}
-                location={"Manchester"}
-                salary={"£35K - £45K"}
-                duration={"Full Time"}
-                date={"7d"}
-              ></JobContent>
-              <GoldSponsorStrip />
-            </BasicJob>
-            <BasicJob tabIndex={2}>
-              <JobContent
-                company={"TPP"}
-                img={tpp}
-                role={"Deployment Specialist"}
-                location={"Leeds"}
-                duration={"Placement"}
-                salary={"£26K - £28K"}
-                date={"15d"}
-              ></JobContent>
-              <GoldSponsorStrip />
-            </BasicJob>
-            <BasicJob tabIndex={3}>
-              <JobContent
-                company={"FactSet"}
-                img={factset}
-                role={"Cloud Automation Engineer"}
-                location={"London"}
-                salary={"£30K - £40K"}
-                duration={"Placement"}
-                date={"2d"}
-              ></JobContent>
-              <SilverSponsorStrip />
-            </BasicJob>
-            <BasicJob tabIndex={4}>
-              <JobContent
-                company={"Graphcore"}
-                img={graphcore}
-                role={"Full Stack Applications Developer"}
-                location={"Bristol"}
-                salary={"£40K - £50K"}
-                duration={"Internship"}
-                date={"5d"}
-              ></JobContent>
-              <SilverSponsorStrip />
-            </BasicJob>
-            <BasicJob tabIndex={5}>
-              <JobContent
-                company={"J.P. Morgan"}
-                img={jpmorgan}
-                role={"Software Engineer"}
-                location={"Remote"}
-                salary={"£36K - £48K"}
-                duration={"Internship"}
-                date={"17d"}
-              ></JobContent>
-              <BronzeSponsorStrip />
-            </BasicJob>
-            <BasicJob tabIndex={5}>
-              <JobContent
-                company={"Company Name"}
-                img={arm}
-                role={"Role"}
-                location={"Location"}
-                salary={"£Salary1 - Salary2"}
-                duration={"Duration"}
-                date={"Days ago d"}
-              ></JobContent>
-              <Strip />
-            </BasicJob>
-            <BasicJob tabIndex={5}>
-              <JobContent
-                company={"Company Name"}
-                img={arm}
-                role={"Role"}
-                location={"Location"}
-                salary={"£Salary1 - Salary2"}
-                duration={"Duration"}
-                date={"Days ago d"}
-              ></JobContent>
-              <Strip />
-            </BasicJob>
-            <BasicJob tabIndex={5}>
-              <JobContent
-                company={"Company Name"}
-                img={arm}
-                role={"Role"}
-                location={"Location"}
-                salary={"£Salary1 - Salary2"}
-                duration={"Duration"}
-                date={"Days ago d"}
-              ></JobContent>
-              <Strip />
-            </BasicJob>
-            <BasicJob tabIndex={5}>
-              <JobContent
-                company={"Company Name"}
-                img={arm}
-                role={"Role"}
-                location={"Location"}
-                salary={"£Salary1 - Salary2"}
-                duration={"Duration"}
-                date={"Days ago d"}
-              ></JobContent>
-              <Strip />
-            </BasicJob>
-            <BasicJob tabIndex={5}>
-              <JobContent
-                company={"Company Name"}
-                img={arm}
-                role={"Role"}
-                location={"Location"}
-                salary={"£Salary1 - Salary2"}
-                duration={"Duration"}
-                date={"Days ago d"}
-              ></JobContent>
-              <Strip />
-            </BasicJob>
-            <BasicJob tabIndex={5}>
-              <JobContent
-                company={"Company Name"}
-                img={arm}
-                role={"Role"}
-                location={"Location"}
-                salary={"£Salary1 - Salary2"}
-                duration={"Duration"}
-                date={"Days ago d"}
-              ></JobContent>
-              <Strip />
-            </BasicJob>
-            <BasicJob tabIndex={5}>
-              <JobContent
-                company={"Company Name"}
-                img={arm}
-                role={"Role"}
-                location={"Location"}
-                salary={"£Salary1 - Salary2"}
-                duration={"Duration"}
-                date={"Days ago d"}
-              ></JobContent>
-              <Strip />
-            </BasicJob>
-            */}
           </JobsContainer>
         </JobsList>
         <Details>
-          {!!sortedListings && (
-            <JobDetailsContent {...sortedListings[selected]} />
+          {!!listings && (
+            <Switch>
+              <Route exact path="/" component={True} />
+              <Route
+                path="/:slug"
+                render={(routerProps) => renderDetails(routerProps, listings)}
+              />
+              <Route component={False} />
+            </Switch>
           )}
-          {/**
-          <JobDetailsContent
-            company={"Arm"}
-            role={"Graduate Engineer"}
-            location={"Manchester, England"}
-            salary={"£35,000 - £45,000 p.a."}
-            date={"Posted 25/07/2020"}
-            duration={"Full Time"}
-            description={`#### Introduction:
-If you have a smartphone, digital camera, digital TV, gaming console or a smart meter at home, you’ve already used an Arm Powered product. Over 125 Arm Powered products are shipped every second and over 35 billion Arm technology-based chips have been shipped to date, making us the world’s leading semiconductor Intellectual Property (IP) supplier.
-
-The Arm Office in Sheffield is located in the city centre, close to the universities and with excellent links to the rest of the country. Sheffield itself sits in the centre of the UK and borders the Peak District National Park, with opportunities for many outdoor activities such as hiking, mountain biking and climbing. Sheffield was ranked “the happiest city in Britain” in 2013.
-
-We have numerous teams in the Sheffield office engaged in all the various activities required to bring Arm based systems to markets as diverse as Mobile, Automotive, Machine Learning and Server Infrastructure. These range from creating the necessary software tools required to verify systems, to architecting, designing and verifying system components, to synthesising and implementing them in silicon.
-
-### Job Requirements
-
-
-#### Education & Qualifications
-
-You will preferably be a graduate from a University or Engineering School, in Electronic Engineering, Software Engineering or Computer Science. Other science graduates with relevant experience will be considered.
-
-The systems we are developing are challenging in both the area of hardware design and software, requiring an enthusiasm for science and technology as a whole. You will find that you are encouraged to find solutions wherever such a challenge presents itself so this will test your ingenuity and ability to work in an autonomous manner as well as part of a cohesive team.
-
-#### Essential Skills & Experience
-
-The essential skills for a candidate should include:
-* Excellent written and spoken English communication, capable of writing coherent reports, influencing and building consensus
-* Willingness to be flexible and accept new challenges
-* Strong analytical and problem-solving skills
-* Ability to express ideas and communicate effectively
-* Good inter-personal skills
-* Desirable Skills & Experience
-
-The following skills would be nice to have:
-* Experience of Verilog, SystemVerilog or VHDL
-* HDL synthesis design knowledge
-* Perl, Python or other scripting language
-* Familiarity of Unix/Linux working environment
-* High-level programming experience in an Object Oriented language such as C/C++
-* Knowledge of microprocessor, ASIC systems
-* Assembly language programming, ideally in Arm assembler`}
-          />
-          */}
         </Details>
       </JobsCard>
     </MainContainer>

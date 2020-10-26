@@ -24,6 +24,7 @@ export interface Listing {
   apply_url: string;
   mailto: string;
   description: string;
+  slug: string;
 }
 
 export interface Option {

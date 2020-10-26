@@ -4,6 +4,7 @@ import { createGlobalStyle } from "styled-components";
 import axios from "axios";
 
 import Jobs from "features/jobs/Jobs";
+import { BrowserRouter as Router } from "react-router-dom";
 
 export const api = axios.create();
 
@@ -14,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     background: #F7F8FB;
-    font-size: 14pt;
+    font-size: 12pt;
     font-family: Roboto, sans-serif;
   }
 
@@ -33,9 +34,11 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 ReactDOM.render(
-  <React.StrictMode>
-    <GlobalStyle />
-    <Jobs />
-  </React.StrictMode>,
+  <Router>
+    <React.StrictMode>
+      <GlobalStyle />
+      <Jobs />
+    </React.StrictMode>
+  </Router>,
   document.getElementById("root")
 );
