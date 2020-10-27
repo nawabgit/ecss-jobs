@@ -9,7 +9,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 export const api = axios.create();
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Roboto');
 
   html, body {
     margin: 0;
