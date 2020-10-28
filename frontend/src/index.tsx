@@ -6,7 +6,10 @@ import axios from "axios";
 import Jobs from "features/jobs/Jobs";
 import { BrowserRouter as Router } from "react-router-dom";
 
-export const api = axios.create();
+// Add /api/ prefix if we are on production
+export const api = axios.create({
+  baseURL: process.env.NODE_ENV == "production" ? "/api/" : "",
+});
 
 const GlobalStyle = createGlobalStyle`
 
