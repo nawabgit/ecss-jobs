@@ -12,6 +12,17 @@ export const api = axios.create({
 });
 
 const GlobalStyle = createGlobalStyle`
+  html {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+  }
+
+  html, body, #root, #root>div {
+    height: 100%
+  }
 
   html, body {
     margin: 0;

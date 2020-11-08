@@ -35,11 +35,13 @@ import {
 
 const MainContainer = styled.div`
   display: flex;
-  min-height: 100vh;
   max-height: 100vh;
   padding: 2em 6em;
   background-color: #e0e0e0;
   box-sizing: border-box;
+  @media only screen and (max-width: 640px) {
+    padding: 0em 0em;
+  }
 `;
 
 const JobsCard = styled.div`
@@ -65,6 +67,14 @@ const JobsTitle = styled.div`
   margin-left: 10px;
   margin-bottom: 20px;
   font-size: 40px;
+
+  @media only screen and (max-width: 640px) {
+    margin-left: 5px;
+    margin-bottom: 20px;
+
+    font-size: 28px;
+    font-weight: 500;
+  }
 `;
 
 const ECSSImg = styled.img`
@@ -76,6 +86,10 @@ const FilterContainer = styled.div`
   display: flex;
   text-align: center;
   margin: 10px 10px 30px 10px;
+
+  @media only screen and (max-width: 640px) {
+    margin: 5px 5px 15px 5px;
+  }
 `;
 
 const FilteredSelect = styled(Select)`
@@ -199,11 +213,19 @@ const Details = styled.div`
   margin: 1em;
   font-size: 11pt;
   border-left: solid #e0e0e0 2px;
+
+  @media only screen and (max-width: 640px) {
+    display: none;
+  }
 `;
 
 const JobIcons = styled.div`
   display: flex;
+  flex-wrap: wrap;
   margin: 20px 50px 5px 0px;
+  @media only screen and (max-width: 640px) {
+    margin: 20px 10px 5px 0px;
+  }
 `;
 
 const DetailsIcons = styled.div`
