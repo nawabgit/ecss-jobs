@@ -7,7 +7,13 @@ import Skeleton from "react-loading-skeleton";
 import FadeIn from "react-fade-in";
 
 import ReactMarkdown from "react-markdown";
-import { Switch, Route, RouteComponentProps, Link } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  RouteComponentProps,
+  Link,
+  useParams,
+} from "react-router-dom";
 import { differenceInDays } from "date-fns";
 
 import ClockTimeThreeIconOutline from "mdi-react/ClockTimeThreeOutlineIcon";
@@ -17,11 +23,6 @@ import ShareOutlineIcon from "mdi-react/ShareOutlineIcon";
 import EmailOutlineIcon from "mdi-react/EmailOutlineIcon";
 
 import ECSSLogo from "common/images/ecsslogo.png";
-import arm from "common/images/arm.png";
-import tpp from "common/images/tpp.png";
-import factset from "common/images/factset.jpg";
-import graphcore from "common/images/graphcore.svg";
-import jpmorgan from "common/images/jpmorgan.jpg";
 import { useProducerWithThunks } from "common/hooks/useProducer";
 
 import {
@@ -506,6 +507,7 @@ function True({ message }: { message: string }) {
       }}
     >
       <ECSSImg src={ECSSLogo} style={{ maxHeight: "40%", marginBottom: 50 }} />
+      <h2>{message}</h2>
     </div>
   );
 }
@@ -521,13 +523,15 @@ const renderDetails = (
 ) => {
   let slug = routerProps.match.params.slug;
   let foundListing = listings.find((listing) => listing.slug === slug);
-  return foundListing ? <JobDetailsContent {...foundListing} /> : <False />;
+  return foundListing ? (
+    <JobDetailsContent {...foundListing} />
+  ) : (
+    <True message="No job listing with matching ID could be found" />
+  );
 };
 
 function Jobs() {
-  const [selected, setSelected] = useState(0);
   const [selectingFilters, setSelectingFilters] = useState<Option[]>([]);
-
   const [state, dispatch] = useProducerWithThunks(
     listingRecipe,
     defaultListingState
@@ -540,6 +544,7 @@ function Jobs() {
       dispatch(doFilterListings(listings, selectingFilters));
     }
   }, [listings, selectingFilters, dispatch]);
+
   return (
     <MainContainer>
       <JobsCard>
@@ -584,7 +589,9 @@ function Jobs() {
                 path="/:slug"
                 render={(routerProps) => renderDetails(routerProps, listings)}
               />
-              <Route component={False} />
+              <Route>
+                <False />
+              </Route>
             </Switch>
           )}
         </Details>

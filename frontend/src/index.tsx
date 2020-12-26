@@ -5,6 +5,9 @@ import axios from "axios";
 
 import Jobs from "features/jobs/Jobs";
 import { BrowserRouter as Router } from "react-router-dom";
+import App from "App";
+import { Provider } from "react-redux";
+import store from "store";
 
 // Add /api/ prefix if we are on production
 export const api = axios.create({
@@ -48,10 +51,12 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <Router>
-    <React.StrictMode>
-      <GlobalStyle />
-      <Jobs />
-    </React.StrictMode>
+    <Provider store={store}>
+      <React.StrictMode>
+        <GlobalStyle />
+        <App />
+      </React.StrictMode>
+    </Provider>
   </Router>,
   document.getElementById("root")
 );
