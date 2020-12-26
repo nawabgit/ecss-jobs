@@ -33,6 +33,11 @@ const JobsTitle = styled.div`
   margin-bottom: 20px;
   font-size: 40px;
 
+  @media only screen and (max-width: 1200px) {
+    font-size: 32px;
+    font-weight: 500;
+  }
+
   @media only screen and (max-width: 768px) {
     margin-left: 5px;
     margin-bottom: 20px;
