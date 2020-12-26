@@ -3,16 +3,10 @@ import ReactDOM from "react-dom";
 import { createGlobalStyle } from "styled-components";
 import axios from "axios";
 
-import Jobs from "features/jobs/Jobs";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "App";
 import { Provider } from "react-redux";
 import store from "store";
-
-// Add /api/ prefix if we are on production
-export const api = axios.create({
-  baseURL: process.env.NODE_ENV == "production" ? "/api/" : "",
-});
 
 const GlobalStyle = createGlobalStyle`
   html {

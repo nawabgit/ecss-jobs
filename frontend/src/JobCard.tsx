@@ -1,11 +1,11 @@
 import { differenceInDays } from "date-fns/esm/fp";
-import { Listing } from "features/jobs/localState";
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ClockTimeThreeIconOutline from "mdi-react/ClockTimeThreeOutlineIcon";
 import CashIcon from "mdi-react/CashIcon";
 import MapMarkerIcon from "mdi-react/MapMarkerIcon";
+import { Listing } from "state";
 
 const BasicJob = styled.div`
   display: flex;
