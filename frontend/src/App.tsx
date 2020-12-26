@@ -1,6 +1,6 @@
 import useDispatch from "common/hooks/useDispatch";
-import JobDetails from "JobDetails";
-import JobList from "JobList";
+import JobDetails from "components/JobDetails";
+import JobList from "components/JobList";
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { doGetListings } from "state";
@@ -32,6 +32,10 @@ const MainContainer = styled.div`
   padding: 2em 6em;
   background-color: #e0e0e0;
   box-sizing: border-box;
+
+  @media only screen and (max-width: 900px) {
+    padding: 1em 2em;
+  }
 
   @media only screen and (max-width: 768px) {
     padding: 0em 0em;
