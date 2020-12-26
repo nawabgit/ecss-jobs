@@ -17,7 +17,7 @@ import ReactMarkdown from "react-markdown";
 import ECSSLogo from "common/images/ecsslogo.png";
 import Ripples from "react-ripples";
 
-import { StyledLink } from "JobList";
+import { StyledLink } from "components/JobList";
 
 const Details = styled.div`
   display: flex;

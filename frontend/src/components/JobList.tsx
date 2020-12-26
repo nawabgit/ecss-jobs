@@ -14,7 +14,7 @@ import ECSSLogo from "common/images/ecsslogo.png";
 import useSelector from "common/hooks/useSelector";
 import { RootState } from "store";
 import Skeleton from "react-loading-skeleton";
-import JobCard from "JobCard";
+import JobCard from "components/JobCard";
 import { useDispatch } from "react-redux";
 
 const JobsList = styled.div`
