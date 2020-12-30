@@ -108,7 +108,6 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   flex: 5;
-  max-height: 100%;
   overflow-y: auto;
   padding: 20px 40px;
   margin-top: 20px;
