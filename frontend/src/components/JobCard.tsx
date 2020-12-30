@@ -1,6 +1,5 @@
 import { differenceInDays } from "date-fns/esm/fp";
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ClockTimeThreeIconOutline from "mdi-react/ClockTimeThreeOutlineIcon";
 import CashIcon from "mdi-react/CashIcon";
@@ -20,23 +19,6 @@ const BasicJob = styled.div`
   &:focus {
     transition: 0s;
     outline: #2684ff solid 2px;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-    color: inherit;
-    cursor: inherit;
-  }
-
-  &:-webkit-any-link {
   }
 `;
 
@@ -71,19 +53,19 @@ const Image = styled.img`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 `;
 
-const JobContents = styled.div`
+const Contents = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
   margin-left: 10px;
 `;
 
-const JobHeader = styled.div`
+const Header = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-const JobHeaderField = styled.span`
+const Field = styled.span`
   font-size: 12pt;
 `;
 
@@ -91,13 +73,13 @@ const JobDate = styled.span`
   font-size: 10pt;
 `;
 
-const JobRole = styled.span`
+const Role = styled.span`
   font-size: 16pt;
   font-weight: 450;
   margin-top: 2px;
 `;
 
-const JobIcons = styled.div`
+const Icons = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 20px 50px 5px 0px;
@@ -149,13 +131,13 @@ function JobCard({
     <BasicJob tabIndex={1}>
       <InnerJobContainer>
         <Image src={company.image} />
-        <JobContents>
-          <JobHeader>
-            <JobHeaderField>{company.name}</JobHeaderField>
+        <Contents>
+          <Header>
+            <Field>{company.name}</Field>
             <JobDate>{daysAgo ? Math.abs(daysAgo) + " d" : "Today"}</JobDate>
-          </JobHeader>
-          <JobRole>{role}</JobRole>
-          <JobIcons>
+          </Header>
+          <Role>{role}</Role>
+          <Icons>
             <IconContainer>
               <CashIcon />
               <IconText>{salary_preview}</IconText>
@@ -168,8 +150,8 @@ function JobCard({
               <ClockTimeThreeIconOutline />
               <IconText>{job_type}</IconText>
             </IconContainer>
-          </JobIcons>
-        </JobContents>
+          </Icons>
+        </Contents>
       </InnerJobContainer>
       <SponsorStrip sponsor_level={company.sponsor_level} />
     </BasicJob>

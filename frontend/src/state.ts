@@ -2,7 +2,6 @@ import { Reducer } from "redux";
 import produce from "immer";
 import exhaustivenessCheck from "common/utils/exhaustivenessCheck";
 import { ThunkAction } from "store";
-import * as Redux from "redux";
 import { differenceInDays } from "date-fns";
 
 // Retrieve all the listings for the job board
@@ -186,7 +185,6 @@ interface filterMap {
 /**
  * Filter job listings
  */
-
 export const doFilterListings = (
   listings: Listing[],
   filters: Option[]

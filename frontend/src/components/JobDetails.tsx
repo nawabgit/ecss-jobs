@@ -33,20 +33,20 @@ const Details = styled.div`
   }
 `;
 
-const DetailsContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex: 1;
   max-height: 100%;
   flex-direction: column;
 `;
 
-const DetailsHeader = styled.div`
+const Header = styled.div`
   display: flex;
   flex: 1;
   padding: 20px;
 `;
 
-const DetailsMeta = styled.div`
+const Meta = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -54,7 +54,7 @@ const DetailsMeta = styled.div`
   padding-left: 20px;
 `;
 
-const DetailsContact = styled.div`
+const Contact = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -97,14 +97,14 @@ const ButtonText = styled.span`
   user-select: none;
 `;
 
-const DetailsBorder = styled.div`
+const Border = styled.div`
   height: 3px;
   width: 85%;
   align-self: center;
   border-bottom: solid #e0e0e0 2px;
 `;
 
-const DetailsBody = styled.div`
+const Body = styled.div`
   display: flex;
   flex-direction: column;
   flex: 5;
@@ -114,23 +114,23 @@ const DetailsBody = styled.div`
   margin-top: 20px;
 `;
 
-const JobHeaderField = styled.span`
+const HeaderField = styled.span`
   font-size: 12pt;
 `;
 
-const JobRole = styled.span`
+const Role = styled.span`
   font-size: 16pt;
   font-weight: 450;
   margin-top: 2px;
 `;
 
-const JobLocation = styled.span`
+const Location = styled.span`
   margin-top: 5px;
   font-size: 10pt;
   color: #2e2e2e;
 `;
 
-const DetailsIcons = styled.div`
+const Icons = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
@@ -204,20 +204,18 @@ function JobDetailsContent({
   mailto,
 }: Listing) {
   return (
-    <DetailsContainer>
+    <Container>
       <MobileBackButton to="/">
         <Ripple>
           <KeyboardBackspaceIcon />
         </Ripple>
       </MobileBackButton>
-      <DetailsHeader>
-        <DetailsMeta>
-          <JobHeaderField>{company.name}</JobHeaderField>
-          <JobRole>{role}</JobRole>
-          <JobLocation>
-            Posted on {new Date(date).toLocaleDateString()}
-          </JobLocation>
-          <DetailsIcons>
+      <Header>
+        <Meta>
+          <HeaderField>{company.name}</HeaderField>
+          <Role>{role}</Role>
+          <Location>Posted on {new Date(date).toLocaleDateString()}</Location>
+          <Icons>
             <IconContainer>
               <CashIcon />
               <IconText>{full_salary}</IconText>
@@ -230,9 +228,9 @@ function JobDetailsContent({
               <ClockTimeThreeIconOutline />
               <IconText>{job_type}</IconText>
             </IconContainer>
-          </DetailsIcons>
-        </DetailsMeta>
-        <DetailsContact>
+          </Icons>
+        </Meta>
+        <Contact>
           <ContactButton href={apply_url} target="_blank">
             <Ripple>
               <ShareOutlineIcon />
@@ -245,13 +243,13 @@ function JobDetailsContent({
               <ButtonText>Email</ButtonText>
             </Ripple>
           </ContactButton>
-        </DetailsContact>
-      </DetailsHeader>
-      <DetailsBorder />
-      <DetailsBody>
+        </Contact>
+      </Header>
+      <Border />
+      <Body>
         <ReactMarkdown source={description} />
-      </DetailsBody>
-    </DetailsContainer>
+      </Body>
+    </Container>
   );
 }
 

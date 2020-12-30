@@ -17,7 +17,7 @@ import Skeleton from "react-loading-skeleton";
 import JobCard from "components/JobCard";
 import { useDispatch } from "react-redux";
 
-const JobsList = styled.div`
+const List = styled.div`
   display: flex;
   flex-direction: column;
   flex: 4;
@@ -25,7 +25,7 @@ const JobsList = styled.div`
   justify-content: top;
 `;
 
-const JobsTitle = styled.div`
+const Title = styled.div`
   display: flex;
   align-items: center;
   height: 60px;
@@ -80,22 +80,6 @@ const JobsContainer = styled.div`
   flex-direction: column;
 `;
 
-const BasicJob = styled.div`
-  display: flex;
-  margin: 0px 0px 20px;
-  transition: 0.1s;
-  border-bottom: solid #d3d3d3 1px;
-
-  &:hover {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  }
-
-  &:focus {
-    transition: 0s;
-    outline: #2684ff solid 2px;
-  }
-`;
-
 export const StyledLink = styled(Link)`
   text-decoration: none;
 
@@ -144,11 +128,11 @@ function JobList() {
   }, [listings, selectingFilters, dispatch]);
 
   return (
-    <JobsList>
-      <JobsTitle>
+    <List>
+      <Title>
         <ECSSImg src={ECSSLogo} />
         <span>ECSS Job Board</span>
-      </JobsTitle>
+      </Title>
       <FilterContainer>
         <FilteredSelect
           placeholder="Select filters..."
@@ -176,7 +160,7 @@ function JobList() {
           </div>
         )}
       </JobsContainer>
-    </JobsList>
+    </List>
   );
 }
 
